@@ -1,0 +1,6 @@
+C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\AsignacionEntities\bin\Debug\AsignacionEntities.dll
+C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\AsignacionEntities\bin\Debug\AsignacionEntities.pdb
+C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\AsignacionEntities\obj\Debug\AsignacionEntities.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\AsignacionEntities\obj\Debug\AsignacionEntities.dll
+C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\AsignacionEntities\obj\Debug\AsignacionEntities.pdb
+C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\AsignacionEntities\obj\Debug\AsignacionEntities.csproj.AssemblyReference.cache
