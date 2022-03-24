@@ -67,10 +67,10 @@ namespace AsignacionUI.pages
                     HttpResponseMessage response = client.PostAsJsonAsync("/api/Usuarios/InsertarUsuarios", OusuariosEntities).Result;
 
                     lblmensaje.Text = "Registro Exitoso";
-
+                    LimpiarCampos();
                 }
                 else{
-
+                    lblmensaje.Text = "Ya Existe un registro con esa Cedula";
                     LimpiarCampos();
 
                 }

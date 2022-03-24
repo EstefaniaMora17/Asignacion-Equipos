@@ -15,8 +15,29 @@ namespace AsignacionUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-        
 
+            try
+            {
+                if(!IsPostBack)
+                { 
+                    if (HttpContext.Current.User.Identity.IsAuthenticated)
+                    {
+
+                        lblUsuario.Text = HttpContext.Current.User.Identity.Name;
+
+                    }
+                    else
+                    {
+                        Response.Redirect("/Users/Login.aspx");
+                    }
+                }
+               
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         protected void btnCerrar_Click(object sender, EventArgs e)
         {

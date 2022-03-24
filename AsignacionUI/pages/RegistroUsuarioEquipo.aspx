@@ -17,10 +17,12 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label">ID</label>
-                                    <asp:TextBox ID="txtId" CssClass="form-control" runat="server"></asp:TextBox>
-                                      <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtId" runat="server" ErrorMessage="* Campo Obligatorio " ></asp:RequiredFieldValidator>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtId" runat="server" ErrorMessage="* Campo Obligatorio "  ValidationGroup="txtId"></asp:RequiredFieldValidator>
+                                    <label class="form-control-label">ID</label><asp:Label ID="Label1" class="mensajeID" runat="server" Text="*este campo solo se utiliza para Buscar"></asp:Label>
+                                    <asp:TextBox ID="txtId" CssClass="form-control" runat="server"></asp:TextBox> 
+                                
+                                   <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtId" runat="server" ErrorMessage="* Campo Obligatorio " ></asp:RequiredFieldValidator>--%>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtId" runat="server" ErrorMessage="* Campo Obligatorio Solo se utiliza para consultar"  ValidationGroup="txtId"></asp:RequiredFieldValidator>
+
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -83,6 +85,7 @@
                              <div class="col-lg-6">
                                 <label class="form-control-label">Archivo</label>
                                 <asp:FileUpload ID="fuploadImagen" runat="server" CssClass="form-control" AllowMultiple="true" />
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="fuploadImagen" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                         <div class="row">

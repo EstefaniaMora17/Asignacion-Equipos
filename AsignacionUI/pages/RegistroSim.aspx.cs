@@ -63,9 +63,11 @@ namespace AsignacionUI.pages
                     HttpResponseMessage response = client.PostAsJsonAsync("/api/Sim/InsertarSim", OsimEntities).Result;
 
                     lblMensaje.Text = "Registro Exitoso";
+                    LimpiarCampos();
                 }
                 else
                 {
+                    lblMensaje.Text = "Ya Existe un registro con ese ICCID";
                     LimpiarCampos();
                 }
 
@@ -197,7 +199,7 @@ namespace AsignacionUI.pages
             txtMin.Text = "";
             txtPlandatos.Text = "";
             DllidEstadoSim.SelectedIndex = 0;
-            lblMensaje.Text = "Iccid no Registrado";
+            
         }
         public void ocultarBotones(int num)
         {

@@ -98,7 +98,7 @@
                                 <div class="collapse" id="navbar-examples2" style="">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link active scalea" href="../pages/RegistroSim.aspx" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <a class="nav-link active scalea" href="/pages/RegistroSim.aspx">
                                                 <%--<i class="fas fa-sim-card text-info "></i>--%>
                                                 <span class="nav-link-text sizeText enlace">Registro De Sim</span>
                                             </a>
@@ -354,7 +354,8 @@
                                             <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
                                         </span>
                                         <div class="media-body  ml-2  d-none d-lg-block">
-                                            <span class="mb-0 text-sm  font-weight-bold">John Snow</span>
+                                            <span class="mb-0 text-sm  font-weight-bold">
+                                                <asp:Label ID="lblUsuario" runat="server"></asp:Label></span>
                                         </div>
                                     </div>
                                 </a>

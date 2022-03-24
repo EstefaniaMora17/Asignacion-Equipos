@@ -19,7 +19,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-first-name">Cedula</label>
-                                    <asp:TextBox ID="txtCedula" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txtCedula" CssClass="form-control" MaxLength="10" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtCedula" runat="server" ErrorMessage="*Campo Obligatorio"></asp:RequiredFieldValidator>
                                     <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Numbers" TargetControlID="txtCedula" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtCedula" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="txtCedula"></asp:RequiredFieldValidator>

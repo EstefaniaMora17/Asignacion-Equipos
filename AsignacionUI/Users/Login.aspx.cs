@@ -54,7 +54,7 @@ namespace AsignacionUI.pages
                 authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
 
                 // redirecina dentro el sistema
-                Response.Redirect("../Pages/Profile.aspx");
+                Response.Redirect("../Pages/RegistroEquipos.aspx");
             }
             else
             {

@@ -76,10 +76,13 @@ namespace AsignacionUI.pages
                 //url del proyecto webApi
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage response = client.PostAsJsonAsync("/api/UsuarioEquipo/InsertarUsuarioEquipo", OusuarioEquipoEntities).Result;
+                LimpiarCampos();
+                lblMensaje.Text = "Registro Exitoso";
+                LimpiarCampos();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
         public void ConsultarEstadoEquipo()
@@ -249,6 +252,7 @@ namespace AsignacionUI.pages
         public void LimpiarCampos()
         {
             txtId.Text = "";
+            txtObservacion.Text = "";
             DLLcedula.SelectedIndex = 0;
             DLLiccid.SelectedIndex = 0;
             DLLidestadoEquipo.SelectedIndex = 0;

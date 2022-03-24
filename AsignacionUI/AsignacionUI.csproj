@@ -2641,7 +2641,6 @@
     <Content Include="pages\ListaUbicacionEquipo.aspx" />
     <Content Include="pages\ListaUsuario.aspx" />
     <Content Include="pages\ListaUsuarioEquipo.aspx" />
-    <Content Include="pages\Profile.aspx" />
     <Content Include="pages\RegistroArea.aspx" />
     <Content Include="pages\RegistroCargo.aspx" />
     <Content Include="pages\RegistroEquipos.aspx" />
@@ -2728,13 +2727,6 @@
     </Compile>
     <Compile Include="pages\ListaUsuarioEquipo.aspx.designer.cs">
       <DependentUpon>ListaUsuarioEquipo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="pages\Profile.aspx.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="pages\Profile.aspx.designer.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\RegistroArea.aspx.cs">
       <DependentUpon>RegistroArea.aspx</DependentUpon>

@@ -39,7 +39,9 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                
+               
+               
             }
         }
     

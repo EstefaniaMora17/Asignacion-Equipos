@@ -73,14 +73,14 @@ namespace AsignacionUI.pages
                     HttpResponseMessage response = client.PostAsJsonAsync("/api/Equipo/InsertarEquipo", OequipoEntities).Result;
                     //url del api guardar
                     lblMensaje.Text = "Registro Exitoso";
-                    
+                    LimpiarCampos();
                 }
                 else
                 {
                     BtnEditar.Visible = false;
-                  
-                    LimpiarCampos();
 
+                    lblMensaje.Text = " Ya Existe un registro con ese IMEI";
+                    LimpiarCampos();
                 }
 
               
