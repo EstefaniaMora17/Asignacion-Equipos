@@ -54,9 +54,9 @@
             <div class="scrollbar-inner">
                 <!-- Brand -->
                 <div class="sidenav-header  align-items-center">
-                    <h1>SER COMUNICACIONES</h1>
+                    <h1 class="mt-5">SOPORTE TAT</h1>
                 </div>
-                <div class="navbar-inner mt-5">
+                <div class="navbar-inner">
 
                     <!-- Collapse -->
                     <div class="collapse navbar-collapse">
@@ -174,84 +174,7 @@
                             </li>
                         </ul>
                     </div>
-                    <%--  <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class=" accordion-button btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    <p class="textoP">Equipo </p>
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <a class="nav-link scalea" href="/pages/RegistroEquipos.aspx">
-                                        <i class="ni ni-tablet-button  text-info"></i>
-                                        <span class="nav-link-text sizeText ">Registro De Equipos</span>
-                                    </a>
-                                  
-                                    <a class="nav-link active scalea mt-3" href="/pages/ListaEquipo.aspx">
-                                        <i class="ni ni-tablet-button text-info"><i class="fa fa-plus fa-1 iconmas"></i></i>
-                                        <span class="nav-link-text sizeText">Consulta De Equipos</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item mt-4">
-                            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                <button class="accordion-button collapsed  btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                    <p class="textoP">Sim</p>
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                                <div class="accordion-body">
-
-                                    <a class="nav-link active scalea" href="/pages/RegistroSim.aspx" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <i class="fas fa-sim-card text-info "></i>
-                                        <span class="nav-link-text sizeText">Registro De Sim</span>
-                                    </a>
-                                    <a class="nav-link active scalea mt-3" href="/pages/ListaSim.aspx">
-                                        <i class="fas fa-sim-card text-info"><i class="fa fa-plus fa-1 iconmas"></i></i>
-                                        <span class="nav-link-text sizeText">Consulta De Sim</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item mt-4">
-                            <h2 class="accordion-header" id="headingThree">
-                                <button class="accordion-button collapsed btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <p class="textoP">Asesores</p>
-                                </button>
-                            </h2>
-                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    <a class="nav-link active scalea" href="/pages/RegistroUsuario.aspx">
-                                        <i class="fa fa-user text-info" aria-hidden="true"></i>
-                                        <span class="nav-link-text sizeText">Registro De Asesor</span>
-                                    </a>
-                                    <a class="nav-link active scalea mt-3" href="/pages/ListaUsuario.aspx">
-                                        <i class="fas fa-user-friends text-warning text-info"></i>
-                                        <span class="nav-link-text sizeText">Consulta De Asesor</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item mt-4">
-                            <h2 class="accordion-header" id="flush-headingTwo">
-                                <button class="accordion-button collapsed btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                    <p class="textoP">Asesor Equipo</p>
-                                </button>
-                            </h2>
-                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                <a class="nav-link active scalea mt-3" href="/pages/RegistroUsuarioEquipo.aspx"  >
-                                    <i class="fa fa-user text-info" aria-hidden="true"><i class="ni ni-tablet-button iconmas"></i></i>
-                                    <span class="nav-link-text sizeText">Registro Usuario Equipo</span>
-                                </a>
-                                <a class="nav-link active scalea mt-3" href="/pages/ListaUsuarioEquipo.aspx" >
-                                    <i class="fa fa-user text-info" aria-hidden="true"><i class="ni ni-tablet-button iconmas"><i class="fa fa-plus fa-1 iconmas"></i></i></i>
-                                    <span class="nav-link-text sizeText">Consulta Usuario Equipo</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>--%>
+   
 
 
                     <!-- Divider -->
@@ -351,7 +274,7 @@
                                 <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="media align-items-center">
                                         <span class="avatar avatar-sm rounded-circle">
-                                            <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
+                                            <img alt="Image placeholder" src="../assets/img/theme/iconoUser.jpg">
                                         </span>
                                         <div class="media-body  ml-2  d-none d-lg-block">
                                             <span class="mb-0 text-sm  font-weight-bold">
@@ -360,14 +283,11 @@
                                     </div>
                                 </a>
                                 <div class="dropdown-menu  dropdown-menu-right ">
-                                    <a href="/pages/Profile.aspx" class="dropdown-item">
-                                        <i class="ni ni-single-02"></i>
-                                        <span>Perfil</span>
-                                    </a>
                                     <a href="/Users/AdministracionUsuarios.aspx" class="dropdown-item">
                                         <i class="ni ni-single-02"></i>
                                         <span>Administracion De Usuarios</span>
                                     </a>
+                                    
                                     <hr />
                                     <asp:Button ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" CssClass="btn btn-warning btncerrar" Text="Cerrar Sesión" />
                                 </div>

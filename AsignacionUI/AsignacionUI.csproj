@@ -2630,7 +2630,6 @@
     <Content Include="assets\vendor\sweetalert2\dist\sweetalert2.all.min.js" />
     <Content Include="assets\vendor\sweetalert2\dist\sweetalert2.min.css" />
     <Content Include="assets\vendor\sweetalert2\dist\sweetalert2.min.js" />
-    <Content Include="Fotos\123456789.jpg" />
     <Content Include="pages\ListaArea.aspx" />
     <Content Include="pages\ListaCargo.aspx" />
     <Content Include="pages\ListaEquipo.aspx" />
@@ -2641,6 +2640,7 @@
     <Content Include="pages\ListaUbicacionEquipo.aspx" />
     <Content Include="pages\ListaUsuario.aspx" />
     <Content Include="pages\ListaUsuarioEquipo.aspx" />
+    <Content Include="pages\Perfil.aspx" />
     <Content Include="pages\RegistroArea.aspx" />
     <Content Include="pages\RegistroCargo.aspx" />
     <Content Include="pages\RegistroEquipos.aspx" />
@@ -2727,6 +2727,13 @@
     </Compile>
     <Compile Include="pages\ListaUsuarioEquipo.aspx.designer.cs">
       <DependentUpon>ListaUsuarioEquipo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pages\Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="pages\RegistroArea.aspx.cs">
       <DependentUpon>RegistroArea.aspx</DependentUpon>
@@ -3380,6 +3387,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Fotos\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

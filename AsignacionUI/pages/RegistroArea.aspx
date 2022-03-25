@@ -19,23 +19,23 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-username">Id Area</label>
                                     <asp:TextBox ID="txtidArea" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtidArea" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtidArea" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="id" ></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-username">Area</label>
-                                    <asp:TextBox ID="txtArea" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="reqUserName" ControlToValidate="txtArea" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtArea" CssClass="form-control" runat="server"></asp:TextBox> 
+                                    <asp:RequiredFieldValidator ID="reqUserName" ControlToValidate="txtArea" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col  d-flex justify-content-center ">
-                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnGuardar_Click" runat="server" Text="Guardar" />
+                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnGuardar_Click" runat="server" Text="Guardar" ValidationGroup="campo" />
                             </div>
                             <div class="col  d-flex justify-content-center ">
-                                <asp:Button ID="btnEditar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnEditar_Click" runat="server" Text="Editar" />
+                                <asp:Button ID="btnEditar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnEditar_Click" runat="server" Text="Editar" ValidationGroup="id"  />
                             </div>
                         </div>
                     </div>

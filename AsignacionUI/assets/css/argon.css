@@ -81,7 +81,10 @@
     padding-left: 15px;
 }
 
-
+.imagen {
+    width: 73%;
+    
+}
 
 .select2-container .select2-selection--single {
     box-sizing: border-box;
