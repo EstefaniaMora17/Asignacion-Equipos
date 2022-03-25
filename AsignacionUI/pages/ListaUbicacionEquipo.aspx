@@ -15,7 +15,7 @@
             <div class="card-header border-0">
                 <h3 class="mb-0">Lista</h3>
             </div>
-                    <div class="table-responsive">
+            <div class="table-responsive">
                 <table id="DataUbicacionEquipo" class="table align-items-center table-flush">
                     <thead class="thead-light">
                         <tr>
@@ -27,21 +27,11 @@
                     <tbody class="list" runat="server" id="dataUbicacionEquipo">
                     </tbody>
                 </table>
+                <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
             </div>
-            <!-- Light table -->
-           <%-- <div class="table-responsive">
-
-                <asp:GridView GridLinesVisibility="None" ID="GridDataUbicacionEquipo" CssClass="table table-condensed table-hover" AutoGenerateColumns="false" runat="server"  RowStyle-ForeColor="#000">
-                    <Columns>
-                        <asp:BoundField DataField="idubicacionEquipo" HeaderText="id Ubicacion Equipo" />
-                        <asp:BoundField DataField="ubicacionEquipo" HeaderText="ubicacion Equipo" />
-                    </Columns>
-
-                </asp:GridView>
-            </div>--%>
         </div>
     </div>
-   <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

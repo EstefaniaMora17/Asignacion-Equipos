@@ -29,24 +29,9 @@
                     <tbody class="list" runat="server" id="dataSim">
                     </tbody>
                 </table>
+                         <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
             </div>
-         <%--   <div class="table-responsive">
-
-                <asp:GridView GridLinesVisibility="None" ID="GridDataSim" CssClass="table table-condensed table-hover" AutoGenerateColumns="false" runat="server" RowStyle-ForeColor="#000">--%>
-                   <%-- <Columns>
-                        <asp:BoundField DataField="iccid" HeaderText="iccid " />
-                        <asp:BoundField DataField="min" HeaderText="Min " />
-                        <asp:BoundField DataField="plandatos" HeaderText="Tipo Plan" />
-                        <asp:BoundField DataField="estadoSim" HeaderText="Estado Sim" />
-                        <asp:BoundField DataField="fechaSim" HeaderText="FechaSim" />
-                    </Columns>--%>
-
-           <%--     </asp:GridView>
-             
-            </div>
-            <div>
-                <asp:ImageButton ID="btnDescargar" runat="server" src="https://img.icons8.com/color/48/000000/ms-excel.png" onclick="btnDescargar_Click1"/>
-            </div>--%>
+      
         </div>
         </div>
      <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>

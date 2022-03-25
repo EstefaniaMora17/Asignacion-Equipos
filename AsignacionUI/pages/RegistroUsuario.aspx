@@ -20,7 +20,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-first-name">Cedula</label>
                                     <asp:TextBox ID="txtCedula" CssClass="form-control" MaxLength="10" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtCedula" runat="server" ErrorMessage="*Campo Obligatorio"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtCedula" runat="server" ErrorMessage="*Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
                                     <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Numbers" TargetControlID="txtCedula" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtCedula" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="txtCedula"></asp:RequiredFieldValidator>
                                     
@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-last-name">Nombre</label>
                                     <asp:TextBox ID="txtNombre" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtNombre" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtNombre" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
@@ -39,14 +39,14 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-first-name">Apellido</label>
                                     <asp:TextBox ID="txtApellido" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtApellido" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtApellido" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-first-name">Telefono</label>
                                     <asp:TextBox ID="txtTelefono" CssClass="form-control" runat="server" MaxLength="10"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtTelefono" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtTelefono" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                     <label class="form-control-label" for="input-last-name">Area</label>
                                     <asp:DropDownList ID="DLLidArea" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="DLLidArea" runat="server" ErrorMessage="* Campo Obligatorio" InitialValue="0"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="DLLidArea" runat="server" ErrorMessage="* Campo Obligatorio" InitialValue="0" ValidationGroup="campo"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
@@ -67,14 +67,14 @@
                                     <label class="form-control-label" for="input-last-name">Cargo</label>
                                     <asp:DropDownList ID="DLLidCargo" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="DLLidCargo" runat="server" ErrorMessage="* Campo Obligatorio" InitialValue="0"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="DLLidCargo" runat="server" ErrorMessage="* Campo Obligatorio" InitialValue="0" ValidationGroup="campo"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
                         <div class="row" style="margin-left: 28%;">
 
                             <div class="col-lg-4 d-flex justify-content-center" id="Divguardar" runat="server">
-                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger" OnClick="btnGuardar_Click" runat="server" Text="Guardar"   />
+                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger" OnClick="btnGuardar_Click" runat="server" Text="Guardar" ValidationGroup="campo"   />
                             </div>
 
                             <div class=" col-lg-4 d-flex justify-content-center" id="Diveditar" runat="server">

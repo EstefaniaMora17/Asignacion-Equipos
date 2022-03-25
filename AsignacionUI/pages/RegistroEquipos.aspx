@@ -106,7 +106,6 @@
                                     <label class="form-control-label">Estado Equipo</label>
                                     <asp:DropDownList ID="DLLidEstadoEquipo" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="reqFavoriteColor" InitialValue="0" ControlToValidate="DLLidEstadoEquipo" runat="server" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="DLLidEstadoEquipo" InitialValue="0" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
                                 </div>
                             </div>

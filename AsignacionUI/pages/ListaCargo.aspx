@@ -26,19 +26,9 @@
                     <tbody class="list" runat="server" id="dataCargo">
                     </tbody>
                 </table>
+                   <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
             </div>
-            <!-- Light table -->
-          <%--  <div class="table-responsive">
-
-                <asp:GridView GridLinesVisibility="None" ID="GridDataCargo" CssClass="table table-condensed table-hover" AutoGenerateColumns="false" runat="server"  RowStyle-ForeColor="#000">
-                    <Columns>
-                        <asp:BoundField DataField="idcargo" HeaderText="id cargo" />
-                        <asp:BoundField DataField="cargo" HeaderText="cargo" />
-                    </Columns>
-
-                </asp:GridView>
-              
-            </div>--%>
+         
         </div>
     </div>
     <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>

@@ -34,22 +34,7 @@
                     </tbody>
                 </table>
             </div>
-          <%--  <div class="table-responsive">
-                <asp:GridView ID="GridDataUsuario" CssClass="table table-condensed table-hover" AutoGenerateColumns="false" runat="server"  RowStyle-ForeColor="#000" >
-                    <Columns>
-                       <asp:BoundField DataField="cedula" HeaderText="Cedula " />
-                        <asp:BoundField DataField="nombre" HeaderText="Nombre " />
-                        <asp:BoundField DataField="apellido" HeaderText="Apellido" />
-                         <asp:BoundField DataField="telefono" HeaderText="telefono" />
-                        <asp:BoundField DataField="area" HeaderText="Area" />
-                        <asp:BoundField DataField="cargo" HeaderText="Cargo" />
-                        <asp:BoundField DataField="FechaUsuario" HeaderText="Fecha Registro" />
-                    </Columns>
-                </asp:GridView>
-            </div>
-             <div>
-                <asp:ImageButton ID="btnDescargar" runat="server" src="https://img.icons8.com/color/48/000000/ms-excel.png" onclick="btnDescargar_Click"/>
-            </div>--%>
+         
         </div>
     
   <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>

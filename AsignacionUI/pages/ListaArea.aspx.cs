@@ -39,9 +39,9 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                
-               
-               
+
+                lblMensaje.Text = (ex.Message);
+
             }
         }
     
@@ -77,13 +77,10 @@ namespace AsignacionUI.pages
 
                     dataArea.InnerHtml = sb.ToString();
 
-                    //GridDataArea.DataSource = area;
-
-                    //GridDataArea.DataBind();
+                  
                 }
             }
-            //GridDataArea.UseAccessibleHeader = true;
-            //GridDataArea.HeaderRow.TableSection = TableRowSection.TableHeader;
+         
         }
     }
 }

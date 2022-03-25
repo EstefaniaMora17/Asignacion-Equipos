@@ -37,7 +37,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblMensaje.Text = (ex.Message);
             }
         }
         public void ConsultarEstadoEquipo()
@@ -72,15 +72,12 @@ namespace AsignacionUI.pages
 
                     dataEstadoEquipo.InnerHtml = sb.ToString();
 
-                    //GridDataEstadoEquipo.DataSource = estadoEquipo;
-
-                    //GridDataEstadoEquipo.DataBind();
+                  
 
 
                 }
             }
-            //GridDataEstadoEquipo.UseAccessibleHeader = true;
-            //GridDataEstadoEquipo.HeaderRow.TableSection = TableRowSection.TableHeader;
+     
         }
         
     }

@@ -37,7 +37,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblMensaje.Text = (ex.Message);
             }
         }
         public void ConsultarMarca()
@@ -72,16 +72,13 @@ namespace AsignacionUI.pages
 
                     dataMarca.InnerHtml = sb.ToString();
 
-                    //GridDataMarca.DataSource = marca;
-
-                    //GridDataMarca.DataBind();
-
+                 
 
                 }
 
             }
-            //GridDataMarca.UseAccessibleHeader = true;
-            //GridDataMarca.HeaderRow.TableSection = TableRowSection.TableHeader;
+          
+
         }
     }
 }

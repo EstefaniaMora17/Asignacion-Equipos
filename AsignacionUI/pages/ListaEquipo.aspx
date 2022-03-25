@@ -33,29 +33,10 @@
                     </thead>
                     <tbody class="list" runat="server" id="dataEquipo">
                     </tbody>
+                     <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
                 </table>
             </div>
-            <!-- Light table -->
-<%--            <div class="table table-hover">
-                <asp:GridView GridLinesVisibility="None" ID="GridDataEquipo" CssClass="table table-condensed table-hover" AutoGenerateColumns="false" runat="server"  RowStyle-ForeColor="#000" >
-                    <Columns>
-                        <asp:BoundField DataField="imei" HeaderText="Imei"/>
-                         <asp:BoundField DataField="Referencia" HeaderText="Referencia" />
-                        <asp:BoundField DataField="marca" HeaderText="Marca" />
-                        <asp:BoundField DataField="rom" HeaderText="Rom" />
-                        <asp:BoundField DataField="ram" HeaderText="Ram" />
-                        <asp:BoundField DataField="bateria" HeaderText="Bateria" />
-                        <asp:BoundField DataField="accesorios" HeaderText="Accesorios" />
-                         <asp:BoundField DataField="Precio" HeaderText="Precio" />
-                         <asp:BoundField DataField="observacion" HeaderText="observacion" />
-                        <asp:BoundField DataField="estadoEquipo" HeaderText="Estado Equipo" />
-                        <asp:BoundField DataField="ubicacionEquipo" HeaderText="Ubicacion Equipo" />
-                    </Columns>
-                </asp:GridView>
-               <div>
-                <asp:ImageButton ID="btnDescargar" runat="server" src="https://img.icons8.com/color/48/000000/ms-excel.png" onclick="btnDescargar_Click"/>
-            </div>
-            </div>--%>
+           
         </div>
         </div>
   <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>

@@ -38,7 +38,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblMensaje.Text = (ex.Message);
             }
         }
 
@@ -66,9 +66,9 @@ namespace AsignacionUI.pages
                 }  
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                lblMensaje.Text = (ex.Message);
             }
         }
         public bool ConsultarCargoIndv(int idcargo)

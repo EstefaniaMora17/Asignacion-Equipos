@@ -19,14 +19,14 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-username">Id Cargo</label>
                                     <asp:TextBox ID="txtidCargo" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtidCargo" runat="server" ErrorMessage="* Campo Obligatorio"ValidationGroup="id" ></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtidCargo" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="id" ></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-username">Cargo</label>
                                     <asp:TextBox ID="txtCargo" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtidCargo" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtCargo" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>

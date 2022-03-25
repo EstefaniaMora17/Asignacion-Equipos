@@ -27,6 +27,7 @@
      </script>
 </head>
 
+
 <body class="bg-default">
 
     <!-- Main content -->
@@ -36,7 +37,7 @@
             <div class="container">
                 <div class="header-body text-center mb-7">
                     <div class="row justify-content-center">
-                   <%--   <img alt="Image placeholder" src="../assets/img/theme/sercomunicaciones.jpg"> --%>
+                <%--     <img alt="Image placeholder" src="../assets/img/theme/SserCom.png">--%>
                     </div>
                 </div>
             </div>

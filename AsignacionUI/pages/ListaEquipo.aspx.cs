@@ -40,7 +40,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblMensaje.Text = (ex.Message);
             }
         }
         public void ConsultarEquipo()
@@ -84,66 +84,12 @@ namespace AsignacionUI.pages
 
                     dataEquipo.InnerHtml = sb.ToString();
 
-                    //GridDataEquipo.DataSource = equipo;
-
-                    //GridDataEquipo.DataBind();
-
-
                 }
             }
-            //GridDataEquipo.UseAccessibleHeader = true;
-            //GridDataEquipo.HeaderRow.TableSection = TableRowSection.TableHeader;
+         
         }
 
-        //protected void btnDescargar_Click(object sender, ImageClickEventArgs e)
-        //{
-        //    Response.Clear();
-        //    Response.Buffer = true;
-        //    Response.AddHeader("content-disposition", "attachment;filename=GridDataEquipo.xls");
-        //    Response.Charset = "";
-        //    Response.ContentType = "application/vnd.ms-excel";
-
-        //    using (StringWriter OstringWriter = new StringWriter())
-        //    {
-        //        HtmlTextWriter OhtmlTextWriter = new HtmlTextWriter(OstringWriter);
-
-        //        GridDataEquipo.AllowPaging = false;
-        //        this.ConsultarEquipo();
-        //        GridDataEquipo.HeaderRow.BackColor = Color.White;
-        //        foreach (TableCell cell in GridDataEquipo.HeaderRow.Cells)
-        //        {
-        //            cell.BackColor = GridDataEquipo.HeaderStyle.BackColor;
-        //        }
-        //        foreach (GridViewRow row in GridDataEquipo.Rows)
-        //        {
-        //            row.BackColor = Color.White;
-        //            foreach (TableCell cell in row.Cells)
-        //            {
-        //                if (row.RowIndex % 2 == 0)
-        //                {
-        //                    cell.BackColor = GridDataEquipo.AlternatingRowStyle.BackColor;
-        //                }
-        //                else
-        //                {
-        //                    cell.BackColor = GridDataEquipo.RowStyle.BackColor;
-        //                }
-        //                cell.CssClass = "textmode";
-        //            }
-        //        }
-        //        GridDataEquipo.RenderControl(OhtmlTextWriter);
-        //        string style = @"<style> .textmode { } </style>";
-        //        Response.Write(style);
-        //        Response.Output.Write(OstringWriter.ToString());
-        //        Response.Flush();
-        //        Response.End();
-        //    }
-
-        //}
-        //public override void VerifyRenderingInServerForm(Control control)
-        //{
-
-        //    //Confirma que se representa un control HtmlForm para el control de servidor 
-        //}
+   
     }
 
 }

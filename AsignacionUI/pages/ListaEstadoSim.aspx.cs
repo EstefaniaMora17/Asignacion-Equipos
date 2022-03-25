@@ -34,7 +34,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblMensaje.Text = (ex.Message);
             }
         }
         public void ConsultarEstadoSim()
@@ -68,15 +68,11 @@ namespace AsignacionUI.pages
 
                     dataEstadoSim.InnerHtml = sb.ToString();
 
-                    //GridDataEstadoSim.DataSource = estadoSim;
-
-                    //GridDataEstadoSim.DataBind();
 
 
                 }
             }
-            //GridDataEstadoSim.UseAccessibleHeader = true;
-            //GridDataEstadoSim.HeaderRow.TableSection = TableRowSection.TableHeader;
+          
         }
 
     }

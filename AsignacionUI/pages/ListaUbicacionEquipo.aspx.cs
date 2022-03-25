@@ -37,7 +37,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblMensaje.Text = (ex.Message);
             }
         }
         public void ConsultarUbicacionEquipo()
@@ -71,14 +71,11 @@ namespace AsignacionUI.pages
 
                     dataUbicacionEquipo.InnerHtml = sb.ToString();
 
-                    //GridDataUbicacionEquipo.DataSource = ubicacionEquipo;
-
-                    //GridDataUbicacionEquipo.DataBind();
+                   
 
                 }
             }
-            //GridDataUbicacionEquipo.UseAccessibleHeader = true;
-            //GridDataUbicacionEquipo.HeaderRow.TableSection = TableRowSection.TableHeader;
+          
         }
     }
 }

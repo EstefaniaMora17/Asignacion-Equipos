@@ -37,7 +37,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                lblMensaje.Text = (ex.Message);
             }
         }
 
@@ -68,7 +68,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception)
             {
-                throw;
+                lblMensaje.Text = (ex.Message);
             }
         }
         public bool ConsultarMarcaIndv(int idMarca)
