@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" CodeBehind="RegistroEquipos.aspx.cs" Inherits="AsignacionUI.pages.RegistroEquipos" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
@@ -19,8 +20,8 @@
                                 <div class="form-group">
                                     <label class="form-control-label">IMEI</label>
                                     <asp:TextBox ID="txtImei" CssClass="form-control" runat="server" MaxLength="15"></asp:TextBox>
-                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtImei"  runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
-                                        <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Numbers" TargetControlID="txtImei" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtImei" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
+                                    <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Numbers" TargetControlID="txtImei" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtImei" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="imei"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
@@ -113,7 +114,7 @@
                     </div>
                     <div class=" row" style="margin-left: 28%;">
                         <div class="col-lg-4 d-flex justify-content-center " id="Divguardar" runat="server">
-                            <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger" runat="server" OnClick="btnGuardar_Click" Text="Guardar" ValidationGroup="campo"/>
+                            <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger" runat="server" OnClick="btnGuardar_Click" Text="Guardar" ValidationGroup="campo" />
                         </div>
                         <div class="col-lg-4 d-flex justify-content-center" id="Diveditar" runat="server">
                             <asp:Button ID="BtnEditar" CssClass="btn btn-outline-danger" runat="server" OnClick="BtnEditar_Click" Text="Editar" />
@@ -122,8 +123,15 @@
                             <asp:Button ID="btnBuscar" CssClass="btn btn-outline-danger" runat="server" OnClick="btnBuscar_Click" Text="Buscar" ValidationGroup="imei" />
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
+                        </div>
 
-                    <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                    </div>
 
                 </div>
             </div>

@@ -11,6 +11,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroEstadoEquipo : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -22,6 +23,7 @@ namespace AsignacionUI.pages
                     {
                         if (User.IsInRole("Soporte") || User.IsInRole("Coordinador"))
                         {
+                            capturarExcepcion();
                         }
                         else
                         {
@@ -37,7 +39,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -68,7 +71,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
 
 
@@ -100,29 +104,39 @@ namespace AsignacionUI.pages
             }
         }
         protected void btnEditar_Click(object sender, EventArgs e)
-        {  
-            if (ConsultarEstadoEquipoIndv(int.Parse(txtidEstadoEquipo.Text)) == true)
+        {
+            try
             {
-                EstadoEquipoEntities OestadoEquipoEntities = new EstadoEquipoEntities();
-                OestadoEquipoEntities.idEstadoEquipo = int.Parse(txtidEstadoEquipo.Text);
-                OestadoEquipoEntities.estadoEquipo = txtestadoEquipo.Text;
+                if (ConsultarEstadoEquipoIndv(int.Parse(txtidEstadoEquipo.Text)) == true)
+                {
+                    EstadoEquipoEntities OestadoEquipoEntities = new EstadoEquipoEntities();
+                    OestadoEquipoEntities.idEstadoEquipo = int.Parse(txtidEstadoEquipo.Text);
+                    OestadoEquipoEntities.estadoEquipo = txtestadoEquipo.Text;
 
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44335");
-                //url del proyecto webApi
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("/api/EstadoEquipo/ActualizarEstadoEquipo", OestadoEquipoEntities).Result;
-                //url del api guardar
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri("https://localhost:44335");
+                    //url del proyecto webApi
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response = client.PostAsJsonAsync("/api/EstadoEquipo/ActualizarEstadoEquipo", OestadoEquipoEntities).Result;
+                    //url del api guardar
 
-                 lblMensaje.Text = "Edicion Exitosa";
+                    lblMensaje.Text = "Edicion Exitosa";
+                }
+                else
+                {
+                    lblMensaje.Text = "id Estado Equipo No Registrado";
+                    txtidEstadoEquipo.Text = "";
+                    txtestadoEquipo.Text = "";
+                }
             }
-            else
+            catch(Exception ex)
             {
-                lblMensaje.Text = "id Estado Equipo No Registrado";
-                txtidEstadoEquipo.Text = "";
-                txtestadoEquipo.Text = "";
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
+          
 
         }
+       
     }
 }

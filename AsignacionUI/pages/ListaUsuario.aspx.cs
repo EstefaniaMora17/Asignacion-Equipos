@@ -14,6 +14,7 @@ namespace AsignacionUI.pages
 {
     public partial class ListaUsuario : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -41,7 +42,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                throw ex;
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
         public void ConsultarUsuario()

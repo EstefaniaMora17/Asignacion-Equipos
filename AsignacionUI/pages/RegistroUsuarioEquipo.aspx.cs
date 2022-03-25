@@ -14,6 +14,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroUsuarioEquipo : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -45,7 +46,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -82,7 +84,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
         public void ConsultarEstadoEquipo()
@@ -238,16 +241,25 @@ namespace AsignacionUI.pages
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (ConsultarUsuarioEquipoIndv(int.Parse(txtId.Text)) == true)
+            try
             {
-                lblMensaje.Text = "Datos encontrados";
-            }
-            else
-            {
-                LimpiarCampos();
+                if (ConsultarUsuarioEquipoIndv(int.Parse(txtId.Text)) == true)
+                {
+                    lblMensaje.Text = "Datos encontrados";
+                }
+                else
+                {
+                    LimpiarCampos();
 
 
+                }
             }
+            catch (Exception ex)
+            {
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
+            }
+
         }
         public void LimpiarCampos()
         {

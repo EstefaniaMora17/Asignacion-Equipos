@@ -11,6 +11,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroCargo : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -22,7 +23,7 @@ namespace AsignacionUI.pages
                     {
                         if (User.IsInRole("Soporte") || User.IsInRole("Coordinador"))
                         {
-
+                           
                         }
                         else
                         {
@@ -38,7 +39,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -63,12 +65,13 @@ namespace AsignacionUI.pages
                 {
                     lblMensaje.Text = "Id Cargo Ya Existe";
                     txtCargo.Text = "";
-                }  
+                }
 
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
         public bool ConsultarCargoIndv(int idcargo)
@@ -99,30 +102,40 @@ namespace AsignacionUI.pages
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            if(ConsultarCargoIndv(int.Parse(txtidCargo.Text))== true)
+            try
             {
-                CargoEntities OcargoEntities = new CargoEntities();
-                OcargoEntities.idcargo = int.Parse(txtidCargo.Text);
-                OcargoEntities.cargo = txtCargo.Text;
+                if (ConsultarCargoIndv(int.Parse(txtidCargo.Text)) == true)
+                {
+                    CargoEntities OcargoEntities = new CargoEntities();
+                    OcargoEntities.idcargo = int.Parse(txtidCargo.Text);
+                    OcargoEntities.cargo = txtCargo.Text;
 
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44335");
-                //url del proyecto webApi
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("/api/Cargo/Actualizarcargo", OcargoEntities).Result;
-                //url del api guardar
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri("https://localhost:44335");
+                    //url del proyecto webApi
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response = client.PostAsJsonAsync("/api/Cargo/Actualizarcargo", OcargoEntities).Result;
+                    //url del api guardar
 
-                lblMensaje.Text = "Edicion Exitosa";
+                    lblMensaje.Text = "Edicion Exitosa";
+                }
+                else
+                {
+                    lblMensaje.Text = "id Cargo No Registrado";
+                    txtidCargo.Text = "";
+                    txtCargo.Text = "";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblMensaje.Text = "id Cargo No Registrado";
-                txtidCargo.Text = "";
-                txtCargo.Text = "";
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
+
             }
+
 
         }
 
-       
+      
     }
 }

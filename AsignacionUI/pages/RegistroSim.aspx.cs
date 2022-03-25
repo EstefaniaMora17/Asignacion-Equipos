@@ -11,6 +11,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroSim : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -39,7 +40,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -74,7 +76,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
         public void ConsultarEstadoSim()
@@ -91,17 +94,17 @@ namespace AsignacionUI.pages
 
                     var estadoSim = readTask.Result;
 
-                    DllidEstadoSim.DataSource =  estadoSim;
+                    DllidEstadoSim.DataSource = estadoSim;
                     DllidEstadoSim.DataTextField = "estadoSim";
                     DllidEstadoSim.DataValueField = "idEstadoSim";
                     DllidEstadoSim.DataBind();
                     DllidEstadoSim.Items.Insert(0, new ListItem("Seleccione Estado Sim", "0"));
                     DllidEstadoSim.Dispose();
 
-                    
+
                 }
             }
-        } 
+        }
         public bool ConsultarSimIndv(string iccid)
         {
             bool estado = false;
@@ -119,7 +122,7 @@ namespace AsignacionUI.pages
 
                     if (sim.iccid == iccid)
                     {
-                        
+
                         estado = true;
                     }
                 }
@@ -175,23 +178,35 @@ namespace AsignacionUI.pages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
-        
+
         }
         protected void btnBucar_Click(object sender, EventArgs e)
         {
-            if (ConsultarSim(txtIccid.Text)== true) 
+            try
             {
-                lblMensaje.Text = "Datos encontrados";
-                ocultarBotones(2);
+                if (ConsultarSim(txtIccid.Text) == true)
+                {
+                    lblMensaje.Text = "Datos encontrados";
+                    ocultarBotones(2);
+                }
+                else
+                {
+                    LimpiarCampos();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                LimpiarCampos();
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
+           
+
+
         }
         public void LimpiarCampos()
         {
@@ -199,7 +214,7 @@ namespace AsignacionUI.pages
             txtMin.Text = "";
             txtPlandatos.Text = "";
             DllidEstadoSim.SelectedIndex = 0;
-            
+
         }
         public void ocultarBotones(int num)
         {

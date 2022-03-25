@@ -12,6 +12,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroUbicacionEquipo : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -39,7 +40,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -67,9 +69,10 @@ namespace AsignacionUI.pages
                     txtUbicacionEquipo.Text = "";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
 
         }
@@ -100,27 +103,36 @@ namespace AsignacionUI.pages
         }
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            if (ConsultarUbicacionEquipoIndv(int.Parse(txidubicacionEquipo.Text)) == true)
+            try
             {
-                UbicacionEquipoEntities OubicacionEquipoEntities = new UbicacionEquipoEntities();
-                OubicacionEquipoEntities.idubicacionEquipo = int.Parse(txidubicacionEquipo.Text);
-                OubicacionEquipoEntities.ubicacionEquipo = txtUbicacionEquipo.Text;
+                if (ConsultarUbicacionEquipoIndv(int.Parse(txidubicacionEquipo.Text)) == true)
+                {
+                    UbicacionEquipoEntities OubicacionEquipoEntities = new UbicacionEquipoEntities();
+                    OubicacionEquipoEntities.idubicacionEquipo = int.Parse(txidubicacionEquipo.Text);
+                    OubicacionEquipoEntities.ubicacionEquipo = txtUbicacionEquipo.Text;
 
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44335");
-                //url del proyecto webApi
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("/api/UbicacionEquipo/ActualizarUbicacionEquipo", OubicacionEquipoEntities).Result;
-                //url del api guardar
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri("https://localhost:44335");
+                    //url del proyecto webApi
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response = client.PostAsJsonAsync("/api/UbicacionEquipo/ActualizarUbicacionEquipo", OubicacionEquipoEntities).Result;
+                    //url del api guardar
 
-                lblMensaje.Text = "Edicion Exitosa";
+                    lblMensaje.Text = "Edicion Exitosa";
+                }
+                else
+                {
+                    lblMensaje.Text = "id Ubicacion Equipo No Registrado";
+                    txidubicacionEquipo.Text = "";
+                    txtUbicacionEquipo.Text = "";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblMensaje.Text = "id Ubicacion Equipo No Registrado";
-                txidubicacionEquipo.Text = "";
-                txtUbicacionEquipo.Text = "";
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
+
         }
     }
 }

@@ -27,7 +27,7 @@
                     <tbody class="list" runat="server" id="dataEstadoEquipo">
                     </tbody>
                 </table>
-                 <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                 <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
             </div>
           
         </div>

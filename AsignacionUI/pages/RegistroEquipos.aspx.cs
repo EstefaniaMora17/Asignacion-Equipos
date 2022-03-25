@@ -13,6 +13,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroEquipos : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -28,6 +29,7 @@ namespace AsignacionUI.pages
                             ConsultarUbicacionEquipo();
                             ConsultarMarca();
                             ocultarBotones(1);
+                            capturarExcepcion();
                         }
                         else
                         {
@@ -43,7 +45,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -87,7 +90,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
 
         }
@@ -261,9 +265,10 @@ namespace AsignacionUI.pages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
 
 
@@ -271,17 +276,26 @@ namespace AsignacionUI.pages
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-           if( ConsultarEquipo(txtImei.Text) == true)
+            try
             {
-                lblMensaje.Text = "Datos Encontrados";
-                ocultarBotones(2);
-                
+                if (ConsultarEquipo(txtImei.Text) == true)
+                {
+                    lblMensaje.Text = "Datos Encontrados";
+                    ocultarBotones(2);
+
+                }
+                else
+                {
+                    LimpiarCampos();
+                    lblMensaje.Text = "imei no registrado";
+                }
             }
-            else
+            catch(Exception ex)
             {
-                LimpiarCampos();
-                lblMensaje.Text = "imei no registrado";
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
+          
            
         }
         public void LimpiarCampos()
@@ -319,5 +333,6 @@ namespace AsignacionUI.pages
             }
 
         }
+       
     }
 }

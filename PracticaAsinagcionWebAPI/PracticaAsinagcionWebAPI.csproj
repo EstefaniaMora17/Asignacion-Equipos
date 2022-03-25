@@ -158,6 +158,7 @@
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\EstadoEquipoController.cs" />
     <Compile Include="Controllers\EstadoSimController.cs" />
+    <Compile Include="Controllers\ExcepcionesController.cs" />
     <Compile Include="Controllers\MarcaController.cs" />
     <Compile Include="Controllers\SimController.cs" />
     <Compile Include="Controllers\UbicacionEquipoController.cs" />

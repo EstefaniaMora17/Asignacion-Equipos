@@ -46,6 +46,7 @@
     <Compile Include="EquipoEntities.cs" />
     <Compile Include="EstadoEquipoEntities.cs" />
     <Compile Include="EstadoSimEntities.cs" />
+    <Compile Include="ExcepcionesEntities.cs" />
     <Compile Include="MarcaEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimEntities.cs" />

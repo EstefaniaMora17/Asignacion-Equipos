@@ -11,6 +11,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegitroUsuario : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -40,7 +41,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
 
         }
@@ -49,7 +51,7 @@ namespace AsignacionUI.pages
         {
             try
             {
-                if (ConsultarUsuarioIndv(txtCedula.Text)== false)
+                if (ConsultarUsuarioIndv(txtCedula.Text) == false)
                 {
                     UsuariosEntities OusuariosEntities = new UsuariosEntities();
                     OusuariosEntities.cedula = txtCedula.Text;
@@ -66,23 +68,25 @@ namespace AsignacionUI.pages
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = client.PostAsJsonAsync("/api/Usuarios/InsertarUsuarios", OusuariosEntities).Result;
 
-                    lblmensaje.Text = "Registro Exitoso";
+                    lblMensaje.Text = "Registro Exitoso";
                     LimpiarCampos();
                 }
-                else{
-                    lblmensaje.Text = "Ya Existe un registro con esa Cedula";
+                else
+                {
+                    lblMensaje.Text = "Ya Existe un registro con esa Cedula";
                     LimpiarCampos();
 
                 }
             }
-            catch (Exception ex)   
+            catch (Exception ex)
             {
-                lblmensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
         public void ConsultarArea()
         {
-            using ( var client = new HttpClient()) 
+            using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44335");
                 var responseTask = client.GetAsync("/api/Area/consultarArea");
@@ -132,7 +136,7 @@ namespace AsignacionUI.pages
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Usuarios/ConsultarUsuarioIndv?cedula="+ cedula+"");
+                var responseTask = client.GetAsync("/api/Usuarios/ConsultarUsuarioIndv?cedula=" + cedula + "");
 
                 var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
@@ -197,24 +201,24 @@ namespace AsignacionUI.pages
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     HttpResponseMessage response = client.PostAsJsonAsync("/api/Usuarios/InsertarUsuarios", OusuariosEntities).Result;
 
-                    lblmensaje.Text = "Edicion Exitosa";
+                    lblMensaje.Text = "Edicion Exitosa";
                     LimpiarCampos();
                     ocultarBotones(3);
 
                 }
                 else
                 {
-                    lblmensaje.Text = "cedula no Registrada";
+                    lblMensaje.Text = "cedula no Registrada";
                     LimpiarCampos();
                 }
 
             }
             catch (Exception ex)
             {
-                lblmensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
-
         private void LimpiarCampos()
         {
             txtCedula.Text = "";
@@ -223,21 +227,30 @@ namespace AsignacionUI.pages
             txtTelefono.Text = "";
             DLLidArea.SelectedIndex = 0;
             DLLidCargo.SelectedIndex = 0;
-           
+
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
-          if  (ConsultarUsuario(txtCedula.Text) == true)
+            try
             {
+                if (ConsultarUsuario(txtCedula.Text) == true)
+                {
 
-                lblmensaje.Text = "Datos Encontrados";
-                ocultarBotones(2);
+                    lblMensaje.Text = "Datos Encontrados";
+                    ocultarBotones(2);
+                }
+                else
+                {
+                    LimpiarCampos();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                LimpiarCampos();
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
+
         }
         public void ocultarBotones(int num)
         {
@@ -261,4 +274,4 @@ namespace AsignacionUI.pages
         }
     }
 }
- 
+

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteMaster.Master" AutoEventWireup="true" CodeBehind="RegistroUsuario.aspx.cs" Inherits="AsignacionUI.pages.RegitroUsuario" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
@@ -23,9 +24,9 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtCedula" runat="server" ErrorMessage="*Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
                                     <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Numbers" TargetControlID="txtCedula" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtCedula" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="txtCedula"></asp:RequiredFieldValidator>
-                                    
+
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-last-name">Nombre</label>
@@ -74,7 +75,7 @@
                         <div class="row" style="margin-left: 28%;">
 
                             <div class="col-lg-4 d-flex justify-content-center" id="Divguardar" runat="server">
-                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger" OnClick="btnGuardar_Click" runat="server" Text="Guardar" ValidationGroup="campo"   />
+                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger" OnClick="btnGuardar_Click" runat="server" Text="Guardar" ValidationGroup="campo" />
                             </div>
 
                             <div class=" col-lg-4 d-flex justify-content-center" id="Diveditar" runat="server">
@@ -86,7 +87,15 @@
                         </div>
                     </div>
                 </div>
-                <asp:Label ID="lblmensaje" runat="server"></asp:Label>
+                <div class="row">
+                    <div class="col">
+                        <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                    </div>
+                    <div class="col">
+                        <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
+                    </div>
+
+                </div>
             </div>
         </div>
 

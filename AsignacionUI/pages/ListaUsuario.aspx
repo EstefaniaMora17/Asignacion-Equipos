@@ -33,6 +33,7 @@
                     <tbody class="list" runat="server" id="dataUsuarioEquipo">
                     </tbody>
                 </table>
+                  <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
             </div>
          
         </div>

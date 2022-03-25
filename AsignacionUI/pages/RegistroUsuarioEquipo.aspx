@@ -18,8 +18,8 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label">ID</label><asp:Label ID="Label1" class="mensajeID" runat="server" Text="*este campo solo se utiliza para Buscar"></asp:Label>
-                                    <asp:TextBox ID="txtId" CssClass="form-control" runat="server"></asp:TextBox>  
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtId" runat="server" ErrorMessage="* Campo Obligatorio Solo se utiliza para consultar"  ValidationGroup="txtId"></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtId" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtId" runat="server" ErrorMessage="* Campo Obligatorio Solo se utiliza para consultar" ValidationGroup="txtId"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
@@ -80,10 +80,10 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtObservacion" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
-                             <div class="col-lg-6">
+                            <div class="col-lg-6">
                                 <label class="form-control-label">Archivo</label>
                                 <asp:FileUpload ID="fuploadImagen" runat="server" CssClass="form-control" AllowMultiple="true" />
-                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="fuploadImagen" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="fuploadImagen" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                         <div class="row">
@@ -91,7 +91,7 @@
                                 <label class="form-control-label">Imagen</label>
                                 <asp:Image ID="Image1" runat="server" Width="200" Height="200" />
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="row pt-5">
@@ -103,10 +103,18 @@
                         </div>
                     </div>
                     <div>
-                    <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                        <div class="row">
+                            <div class="col">
+                                <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                            </div>
+                            <div class="col">
+                                <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
-                </div>
-                
+
             </div>
         </div>
     </div>

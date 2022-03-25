@@ -11,6 +11,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroArea : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -22,7 +23,7 @@ namespace AsignacionUI.pages
                     {
                         if (User.IsInRole("Soporte") || User.IsInRole("Coordinador"))
                         {
-
+                          
                         }
                         else
                         {
@@ -35,10 +36,12 @@ namespace AsignacionUI.pages
                         Response.Redirect("/Users/Login.aspx");
                     }
                 }
+              
             }
             catch (Exception ex)
             {
-                throw ex;
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -65,9 +68,10 @@ namespace AsignacionUI.pages
                     txtArea.Text = "";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
         public bool ConsultarAreaIndv(int idArea)
@@ -121,10 +125,13 @@ namespace AsignacionUI.pages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
+
+
     }
 }

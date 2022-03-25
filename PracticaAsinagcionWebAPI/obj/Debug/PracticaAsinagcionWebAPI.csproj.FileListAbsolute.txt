@@ -97,3 +97,4 @@ C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\PracticaAsinagcionWebAPI\bin
 C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\PracticaAsinagcionWebAPI\obj\Debug\PracticaAsinagcionWebAPI.dll
 C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\PracticaAsinagcionWebAPI\obj\Debug\PracticaAsinagcionWebAPI.pdb
 C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\PracticaAsinagcionWebAPI\bin\Swashbuckle.Core.dll
+C:\Users\USUARIO\source\repos\PracticaAsinagcionNia\PracticaAsinagcionWebAPI\obj\Debug\PracticaAsinagcionWebAPI.csproj.CopyComplete

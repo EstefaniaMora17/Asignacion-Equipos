@@ -19,7 +19,7 @@
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-username">Id Ubicacion Equipo</label>
                                     <asp:TextBox ID="txidubicacionEquipo" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txidubicacionEquipo" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="id" ></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txidubicacionEquipo" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="id"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -32,14 +32,20 @@
                         </div>
                         <div class="row">
                             <div class="col  d-flex justify-content-center ">
-                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnGuardar_Click" runat="server" Text="Guardar" ValidationGroup="campo"/>
+                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnGuardar_Click" runat="server" Text="Guardar" ValidationGroup="campo" />
                             </div>
                             <div class="col  d-flex justify-content-center">
-                                <asp:Button ID="btnEditar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnEditar_Click" runat="server" Text="Editar" ValidationGroup="id"/>
+                                <asp:Button ID="btnEditar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnEditar_Click" runat="server" Text="Editar" ValidationGroup="id" />
                             </div>
                         </div>
-                        <div>
-                            <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                        <div class="row">
+                            <div class="col">
+                                <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                            </div>
+                            <div class="col">
+                                <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
+                            </div>
+
                         </div>
                     </div>
                 </div>

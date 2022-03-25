@@ -78,6 +78,9 @@
                                 </div>
 
                             </form>
+                              <div>
+                                <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
+                            </div>
                         </div>
                     </div>
                     <div class="row mt-3 ">

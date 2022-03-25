@@ -11,6 +11,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroMarca : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -37,7 +38,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -66,9 +68,10 @@ namespace AsignacionUI.pages
                     txtMarca.Text = "";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
         public bool ConsultarMarcaIndv(int idMarca)
@@ -124,9 +127,10 @@ namespace AsignacionUI.pages
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex) 
             {
-                throw;
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
     }

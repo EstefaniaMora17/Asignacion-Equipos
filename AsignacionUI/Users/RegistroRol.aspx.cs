@@ -11,6 +11,7 @@ namespace AsignacionUI.Users
 {
     public partial class RegistroRol : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -45,6 +46,8 @@ namespace AsignacionUI.Users
             }
             catch (Exception ex)
             {
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
                 lblMensaje.Text = ex.Message + ex.InnerException + ex.StackTrace;
             }
         }

@@ -64,7 +64,15 @@
                             <asp:Button ID="btnBucar" CssClass="btn btn-outline-danger" OnClick="btnBucar_Click" runat="server" Text="Buscar" ValidationGroup="txtIccid" />
                         </div>
                     </div>
-                    <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                    <div class="row">
+                        <div class="col">
+                            <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

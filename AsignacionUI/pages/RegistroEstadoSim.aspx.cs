@@ -11,6 +11,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroEstadoSim : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -22,7 +23,7 @@ namespace AsignacionUI.pages
                     {
                         if (User.IsInRole("Soporte") || User.IsInRole("Coordinador"))
                         {
-
+                            
                         }
                         else
                         {
@@ -38,7 +39,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
 
@@ -68,7 +70,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = (ex.Message);
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
           
         }
@@ -100,28 +103,37 @@ namespace AsignacionUI.pages
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
-            if (ConsultarEstadoSimIndv(int.Parse(txtidEstadoSim.Text)) == true)
+            try
             {
-                EstadoSimEntities OestadoSimEntities = new EstadoSimEntities();
-                OestadoSimEntities.idEstadoSim = int.Parse(txtidEstadoSim.Text);
-                OestadoSimEntities.estadoSim = txtEstadoSim.Text;
+                if (ConsultarEstadoSimIndv(int.Parse(txtidEstadoSim.Text)) == true)
+                {
+                    EstadoSimEntities OestadoSimEntities = new EstadoSimEntities();
+                    OestadoSimEntities.idEstadoSim = int.Parse(txtidEstadoSim.Text);
+                    OestadoSimEntities.estadoSim = txtEstadoSim.Text;
 
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44335");
-                //url del proyecto webApi
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("/api/EstadoSim/ActaulizarEstadoSim", OestadoSimEntities).Result;
-                //url del api guardar
+                    HttpClient client = new HttpClient();
+                    client.BaseAddress = new Uri("https://localhost:44335");
+                    //url del proyecto webApi
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage response = client.PostAsJsonAsync("/api/EstadoSim/ActaulizarEstadoSim", OestadoSimEntities).Result;
+                    //url del api guardar
 
-                lblMensaje.Text = "Edicion Exitosa";
+                    lblMensaje.Text = "Edicion Exitosa";
+                }
+                else
+                {
+                    lblMensaje.Text = "id Estado Sim No Registrado";
+                    txtidEstadoSim.Text = "";
+                    txtEstadoSim.Text = "";
+                }
             }
-            else
+            catch(Exception ex)
             {
-                lblMensaje.Text = "id Estado Sim No Registrado";
-                txtidEstadoSim.Text = "";
-                txtEstadoSim.Text = "";
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
-
+        
         }
+
     }
 }

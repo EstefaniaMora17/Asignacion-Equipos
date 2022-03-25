@@ -19,6 +19,10 @@
                 <h5 class="text-center " style="color: red">
                     <asp:Label ID="lblMensaje" runat="server"> </asp:Label>
                 </h5>
+                <h5 class="text-center " style="color: red">
+                    <asp:Label ID="mensajeExcepcion" runat="server"> </asp:Label>
+                </h5>
+                
                 <div class="d-flex justify-content-center">
                     <div class="form-group col-md-6 ">
                         <label class="form-control-label" style="font-size: 25px" id="lblRol" runat="server">Rol</label>

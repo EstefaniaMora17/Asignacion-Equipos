@@ -13,6 +13,7 @@ namespace AsignacionUI.pages
 {
     public partial class ListaArea : System.Web.UI.Page
     {
+        excepciones Oexcepciones = new excepciones();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -40,8 +41,8 @@ namespace AsignacionUI.pages
             catch (Exception ex)
             {
 
-                lblMensaje.Text = (ex.Message);
-
+                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
+                mensajeExcepcion.Text = (ex.Message);
             }
         }
     
