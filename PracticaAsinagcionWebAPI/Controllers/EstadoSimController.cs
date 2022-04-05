@@ -11,31 +11,51 @@ namespace PracticaAsinagcionWebAPI.Controllers
 {
     public class EstadoSimController : ApiController
     {
-        public bool InsertarEstadoSim([FromBody] AsignacionEntities.EstadoSimEntities OestadoSimEntities)
+        ExcepcionesBusiness oExcepcionesBusiness = new ExcepcionesBusiness();
+        public bool estado { get; set; }
+        public IHttpActionResult Post([FromBody] AsignacionEntities.EstadoSimEntities OestadoSimEntities)
         {
             try
             {
                 EstadoSimBusiness OestadoSimBusiness = new EstadoSimBusiness();
-                return OestadoSimBusiness.InsertarEstadoSim(OestadoSimEntities);
+                estado = OestadoSimBusiness.InsertarEstadoSim(OestadoSimEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error Registrando"));
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error registrando"));
             }
         }
         [HttpPost]
-        public bool ActaulizarEstadoSim([FromBody] AsignacionEntities.EstadoSimEntities OestadoSimEntities)
+        public IHttpActionResult ActaulizarEstadoSim([FromBody] AsignacionEntities.EstadoSimEntities OestadoSimEntities)
         {
             try
             {
                 EstadoSimBusiness OestadoSimBusiness = new EstadoSimBusiness();
-                return OestadoSimBusiness.ActualizarEstadoSim(OestadoSimEntities);
+                estado = OestadoSimBusiness.ActualizarEstadoSim(OestadoSimEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error Actualizando"));
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error Actualizando"));
             }
         }
 

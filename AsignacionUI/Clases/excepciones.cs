@@ -1,4 +1,5 @@
 ﻿using AsignacionEntities;
+using AsignacionUI.Clases;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,30 @@ namespace AsignacionUI
 {
     public class excepciones
     {
-       
+
         public void capturarExcepcion(string mensaje)
         {
             ExcepcionesEntities OexcepcionesEntities = new ExcepcionesEntities();
             OexcepcionesEntities.excepciones = mensaje;
 
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44335");
-            //url del proyecto webApi
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.PostAsJsonAsync("/api/Excepciones/Post", OexcepcionesEntities).Result;
+           
 
-            
+        }
+        public static void capturarExcepcion(Exception mensaje)
+        {
+            try
+            {
+                ExcepcionesEntities OexcepcionesEntities = new ExcepcionesEntities();
+                OexcepcionesEntities.excepciones = string.Concat(mensaje.Message, mensaje.InnerException, mensaje.StackTrace);
+
+                EnrutarUri OenrutarUri = new EnrutarUri();
+
+                OenrutarUri.PostApi("Excepciones/Post", OexcepcionesEntities);
+            }
+            catch (Exception)
+            {
+                //guardar un log en un archivo txt
+            }
         }
     }
 }

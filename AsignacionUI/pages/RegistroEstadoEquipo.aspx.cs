@@ -7,11 +7,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AsignacionEntities;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class RegistroEstadoEquipo : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -21,11 +24,7 @@ namespace AsignacionUI.pages
                 {
                     if (User.Identity.IsAuthenticated)
                     {
-                        if (User.IsInRole("Soporte") || User.IsInRole("Coordinador"))
-                        {
-                            capturarExcepcion();
-                        }
-                        else
+                        if (User.IsInRole("Usuarios Administrativos"))
                         {
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
@@ -39,8 +38,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
             }
         }
 
@@ -48,35 +46,25 @@ namespace AsignacionUI.pages
         {
             try
             {
-                if (ConsultarEstadoEquipoIndv(int.Parse(txtidEstadoEquipo.Text)) == false)
+                EstadoEquipoEntities OestadoEquipoEntities = new EstadoEquipoEntities();
+                OestadoEquipoEntities.estadoEquipo = txtestadoEquipo.Text;
+
+                if (OenrutarUri.PostApi("EstadoEquipo/Post", OestadoEquipoEntities))
                 {
-                    EstadoEquipoEntities OestadoEquipoEntities = new EstadoEquipoEntities();
-                    OestadoEquipoEntities.estadoEquipo = txtestadoEquipo.Text;
-
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/EstadoEquipo/InsertarEstadoEquipo", OestadoEquipoEntities).Result;
-                    //url del api guardar
-
-                    lblMensaje.Text = "Registro Exitoso";
+                    lblMensaje.Text = "Registro Guardados";
                 }
                 else
                 {
-                    lblMensaje.Text = "id Estado Equipo ya Existe";
-                    txtidEstadoEquipo.Text = "";
-                    txtestadoEquipo.Text = "";
+                    throw new Exception(string.Format("Error registrando Estado Equipo. {0} ",
+                     OestadoEquipoEntities.estadoEquipo));
                 }
+
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
             }
-
-
-
         }
         public bool ConsultarEstadoEquipoIndv(int idEstadoEquipo)
         {

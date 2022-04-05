@@ -11,29 +11,49 @@ namespace PracticaAsinagcionWebAPI.Controllers
 {
     public class EquipoController : ApiController
     {
-        public bool InsertarEquipo([FromBody] AsignacionEntities.EquipoEntities OequipoEntities)
+        ExcepcionesBusiness oExcepcionesBusiness = new ExcepcionesBusiness();
+      
+        public IHttpActionResult Post([FromBody] AsignacionEntities.EquipoEntities OequipoEntities)
         {
             try
             {
                 EquipoBusiness oEquipoBusiness = new EquipoBusiness();
-               return oEquipoBusiness.InsertarEquipo(OequipoEntities);
+                bool Estado = oEquipoBusiness.InsertarEquipo(OequipoEntities);
+                if (Estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error Registrando equipo"));
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error Registrando equipo"));
             }
         }
         [HttpPost]
-        public bool ActualizarEquipo([FromBody] AsignacionEntities.EquipoEntities OequipoEntities)
+        public IHttpActionResult ActualizarEquipo([FromBody] AsignacionEntities.EquipoEntities OequipoEntities)
         {
             try
             {
                 EquipoBusiness oEquipoBusiness = new EquipoBusiness();
-                return oEquipoBusiness.ActualizarEquipo(OequipoEntities);
+                bool Estado =  oEquipoBusiness.ActualizarEquipo(OequipoEntities);
+                if (Estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error Actualizando"));
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error registrando"));
             }
         }
         [HttpGet]

@@ -7,11 +7,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AsignacionEntities;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class RegitroUsuario : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -41,8 +44,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
             }
 
         }
@@ -61,14 +63,18 @@ namespace AsignacionUI.pages
                     OusuariosEntities.idArea = int.Parse(DLLidArea.SelectedValue);
                     OusuariosEntities.idcargo = int.Parse(DLLidCargo.SelectedValue);
 
-                    //invocamos al api
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/Usuarios/InsertarUsuarios", OusuariosEntities).Result;
-
-                    lblMensaje.Text = "Registro Exitoso";
+                    if (OenrutarUri.PostApi("Usuarios/Post", OusuariosEntities))
+                    {
+                        lblMensaje.Text = "Registro Guardados";
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("Error registrando Usuario. {0} ", OusuariosEntities.cedula, "{1}",
+                      OusuariosEntities.nombre, "{2}", OusuariosEntities.apellido, "{3}", OusuariosEntities.telefono, "{4}",
+                      OusuariosEntities.idArea, "{5}", OusuariosEntities.idcargo));
+                    }
+                    
+                 
                     LimpiarCampos();
                 }
                 else
@@ -80,8 +86,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
             }
         }
         public void ConsultarArea()
@@ -194,15 +200,16 @@ namespace AsignacionUI.pages
                     OusuariosEntities.idArea = int.Parse(DLLidArea.SelectedValue);
                     OusuariosEntities.idcargo = int.Parse(DLLidCargo.SelectedValue);
 
-                    //invocamos al api
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/Usuarios/InsertarUsuarios", OusuariosEntities).Result;
+                    if (OenrutarUri.PostApi("Usuarios/Post", OusuariosEntities))
+                    {
+                        lblMensaje.Text = "Edicion Exitosa";
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
+                    }
 
-                    lblMensaje.Text = "Edicion Exitosa";
-                    LimpiarCampos();
+                  
                     ocultarBotones(3);
 
                 }

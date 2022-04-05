@@ -2659,6 +2659,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases\excepciones.cs" />
+    <Compile Include="Clases\EnrutarUri.cs" />
     <Compile Include="pages\ListaArea.aspx.cs">
       <DependentUpon>ListaArea.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

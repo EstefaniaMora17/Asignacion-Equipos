@@ -9,12 +9,14 @@ using System.Web.UI.WebControls;
 using AsignacionEntities;
 using System.Drawing;
 using System.IO;
+using AsignacionUI.Clases;
 
 namespace AsignacionUI.pages
 {
     public partial class RegistroUsuarioEquipo : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -46,8 +48,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
             }
         }
 
@@ -72,20 +73,26 @@ namespace AsignacionUI.pages
                 OusuarioEquipoEntities.imagen = bytes;
                 OusuarioEquipoEntities.nombreImagen = Path.GetFileName(fuploadImagen.PostedFile.FileName);
                 OusuarioEquipoEntities.ContentType = fuploadImagen.PostedFile.ContentType;
-                //invocamos al api
-                HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44335");
-                //url del proyecto webApi
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.PostAsJsonAsync("/api/UsuarioEquipo/InsertarUsuarioEquipo", OusuarioEquipoEntities).Result;
-                LimpiarCampos();
-                lblMensaje.Text = "Registro Exitoso";
+
+                if (OenrutarUri.PostApi("UsuarioEquipo/Post", OusuarioEquipoEntities))
+                {
+                    lblMensaje.Text = "Registro Guardados";
+                }
+                else
+                {
+
+                    throw new Exception(string.Format("Error registrando Usuario Equipo. {0} ", OusuarioEquipoEntities.cedula, "{1}",
+                  OusuarioEquipoEntities.imei, "{2}", OusuarioEquipoEntities.iccid, "{3}", OusuarioEquipoEntities.observacion, "{4}",
+                 OusuarioEquipoEntities.idEstadoEquipo, "{5}", OusuarioEquipoEntities.idEstadoSim, "{6}", OusuarioEquipoEntities.imagen,
+                  "{7}", OusuarioEquipoEntities.nombreImagen, "{8}", OusuarioEquipoEntities.ContentType));
+                }
+                
                 LimpiarCampos();
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
             }
         }
         public void ConsultarEstadoEquipo()

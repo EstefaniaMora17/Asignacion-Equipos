@@ -11,29 +11,50 @@ namespace PracticaAsinagcionWebAPI.Controllers
 {
     public class CargoController : ApiController
     {
-        public void InsertarCargo([FromBody] AsignacionEntities.CargoEntities OcargoEntities)
+        ExcepcionesBusiness oExcepcionesBusiness = new ExcepcionesBusiness();
+        public bool estado { get; set; }
+        public IHttpActionResult Post([FromBody] AsignacionEntities.CargoEntities OcargoEntities)
         {
             try
             {
                 CargoBusiness OcargoBusiness = new CargoBusiness();
-                OcargoBusiness.InsertarCargo(OcargoEntities);
+               estado = OcargoBusiness.InsertarCargo(OcargoEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error registrando cargo"));
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error registrando cargo"));
             }
         }
         [HttpPost]
-        public void ActualizarCargo([FromBody] AsignacionEntities.CargoEntities OcargoEntities)
+        public IHttpActionResult ActualizarCargo([FromBody] AsignacionEntities.CargoEntities OcargoEntities)
         {
             try
             {
                 CargoBusiness OcargoBusiness = new CargoBusiness();
-                OcargoBusiness.ActualizarCargo(OcargoEntities);
+               estado = OcargoBusiness.ActualizarCargo(OcargoEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error Actualizando"));
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error Actualizando"));
             }
         }
         [HttpGet]

@@ -17,7 +17,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-username">Id Ubicacion Equipo</label>
+                                    <label class="form-control-label" for="input-username">Id Ubicacion Equipo</label>  <asp:Label ID="Label2" class="mensajeID" runat="server" Text="*este campo solo se utiliza para Editar"></asp:Label>
                                     <asp:TextBox ID="txidubicacionEquipo" CssClass="form-control" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txidubicacionEquipo" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="id"></asp:RequiredFieldValidator>
                                 </div>

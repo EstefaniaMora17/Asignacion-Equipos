@@ -192,56 +192,56 @@
                                 <div class="collapse" id="navbar-examples" style="">
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
-                                            <a href="RegistroCargo.aspx" class="nav-link">
+                                            <a href="/pages/RegistroCargo.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Registro Cargo </span>
                                             </a>
-                                            <a href="ListaCargo.aspx" class="nav-link">
+                                            <a href="/pages/ListaCargo.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Consulta Cargo </span>
                                             </a>
                                             <hr />
                                         </li>
                                         <li class="nav-item">
-                                            <a href="RegistroArea.aspx" class="nav-link">
+                                            <a href="/pages/RegistroArea.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Registro Area </span>
                                             </a>
-                                            <a href="ListaArea.aspx" class="nav-link">
+                                            <a href="/pages/ListaArea.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Consulta Area </span>
                                             </a>
                                             <hr />
                                         </li>
                                         <li class="nav-item">
-                                            <a href="RegistroMarca.aspx" class="nav-link">
+                                            <a href="/pages/RegistroMarca.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Registro Marca </span>
                                             </a>
-                                            <a href="ListaMarca.aspx" class="nav-link">
+                                            <a href="/pages/ListaMarca.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Conusulta Marca </span>
                                             </a>
                                             <hr />
                                         </li>
                                         <li class="nav-item">
-                                            <a href="RegistroEstadoEquipo.aspx" class="nav-link">
+                                            <a href="/pages/RegistroEstadoEquipo.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Registro Estado Equipo </span>
                                             </a>
-                                            <a href="ListaEstadoEquipo.aspx" class="nav-link">
+                                            <a href="/pages/ListaEstadoEquipo.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Consulta Estado Equipo </span>
                                             </a>
                                             <hr />
                                         </li>
                                         <li class="nav-item">
-                                            <a href="RegistroEstadoSim.aspx" class="nav-link">
+                                            <a href="/pages/RegistroEstadoSim.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Registro Estado Sim </span>
                                             </a>
-                                            <a href="ListaEstadoSim.aspx" class="nav-link">
+                                            <a href="/pages/ListaEstadoSim.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Consulta Estado Sim </span>
                                             </a>
                                             <hr />
                                         </li>
 
                                         <li class="nav-item">
-                                            <a href="RegistroUbicacionEquipo.aspx" class="nav-link">
+                                            <a href="/pages/RegistroUbicacionEquipo.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Registro Ubicacion Equipo</span>
                                             </a>
-                                            <a href="ListaUbicacionEquipo.aspx" class="nav-link">
+                                            <a href="/pages/ListaUbicacionEquipo.aspx" class="nav-link">
                                                 <span class="sidenav-normal">Consulta Ubicacion Equipo</span>
                                             </a>
                                         </li>

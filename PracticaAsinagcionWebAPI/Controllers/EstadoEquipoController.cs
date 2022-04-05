@@ -11,32 +11,51 @@ namespace PracticaAsinagcionWebAPI.Controllers
 {
     public class EstadoEquipoController : ApiController
     {
-        public bool InsertarEstadoEquipo([FromBody] AsignacionEntities.EstadoEquipoEntities OestadoEquipoEntities)
+        ExcepcionesBusiness oExcepcionesBusiness = new ExcepcionesBusiness();
+        public bool estado { get; set; }
+        public IHttpActionResult Post([FromBody] AsignacionEntities.EstadoEquipoEntities OestadoEquipoEntities)
         {
             try
             {
                 EstadoEquipoBusiness OestadoEquipoBusiness = new EstadoEquipoBusiness();
-               return OestadoEquipoBusiness.InsertarEstadoEquipo(OestadoEquipoEntities);
+               estado = OestadoEquipoBusiness.InsertarEstadoEquipo(OestadoEquipoEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error registrando"));
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error registrando"));
             }
 
         }
         [HttpPost]
-        public bool ActualizarEstadoEquipo([FromBody] AsignacionEntities.EstadoEquipoEntities OestadoEquipoEntities)
+        public IHttpActionResult ActualizarEstadoEquipo([FromBody] AsignacionEntities.EstadoEquipoEntities OestadoEquipoEntities)
         {
             try
             {
                 EstadoEquipoBusiness OestadoEquipoBusiness = new EstadoEquipoBusiness();
-               return OestadoEquipoBusiness.ActualizarEstadoEquipo(OestadoEquipoEntities);
-
+               estado = OestadoEquipoBusiness.ActualizarEstadoEquipo(OestadoEquipoEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error Actualizando"));
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error Actualizando"));
             }
         }
 

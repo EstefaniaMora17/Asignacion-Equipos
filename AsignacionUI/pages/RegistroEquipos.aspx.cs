@@ -9,11 +9,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AsignacionEntities;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class RegistroEquipos : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -29,7 +32,6 @@ namespace AsignacionUI.pages
                             ConsultarUbicacionEquipo();
                             ConsultarMarca();
                             ocultarBotones(1);
-                            capturarExcepcion();
                         }
                         else
                         {
@@ -45,8 +47,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
             }
         }
 
@@ -68,14 +69,19 @@ namespace AsignacionUI.pages
                     OequipoEntities.idubicacionEquipo = int.Parse(DLLidUbicacionEquipo.SelectedValue);
                     OequipoEntities.idMarca = int.Parse(DLLidMarca.SelectedValue);
                     OequipoEntities.Precio = txtPrecio.Text;
-                    //invocamos al api
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/Equipo/InsertarEquipo", OequipoEntities).Result;
-                    //url del api guardar
-                    lblMensaje.Text = "Registro Exitoso";
+
+
+                    if (OenrutarUri.PostApi("Equipo/Post", OequipoEntities))
+                    {
+                        lblMensaje.Text = "Registro Guardados";
+                    }
+                  
+                    else
+                    {
+                        throw new Exception(string.Format("Error registrando Equipo"));
+                    }
+                    
+                   
                     LimpiarCampos();
                 }
                 else
@@ -86,12 +92,11 @@ namespace AsignacionUI.pages
                     LimpiarCampos();
                 }
 
-              
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
             }
 
         }
@@ -246,15 +251,18 @@ namespace AsignacionUI.pages
                     OequipoEntities.idubicacionEquipo = int.Parse(DLLidUbicacionEquipo.SelectedValue);
                     OequipoEntities.idMarca = int.Parse(DLLidMarca.SelectedValue);
                     OequipoEntities.Precio = txtPrecio.Text;
-                    //invocamos al api
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/Equipo/ActualizarEquipo", OequipoEntities).Result;
-                    //url del api guardar
 
-                    lblMensaje.Text = "Edicion Exitosa";
+                    if (OenrutarUri.PostApi("/api/Equipo", OequipoEntities))
+                    {
+                        lblMensaje.Text = "Edicion Exitosa";
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Error en la edicion, por favor intenta nuevamente";
+                    }
+
+
+                 
                     LimpiarCampos();
                     ocultarBotones(3);
                 }

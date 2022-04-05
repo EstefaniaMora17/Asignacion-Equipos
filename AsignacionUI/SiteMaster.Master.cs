@@ -18,8 +18,8 @@ namespace AsignacionUI
 
             try
             {
-                if(!IsPostBack)
-                { 
+                if (!IsPostBack)
+                {
                     if (HttpContext.Current.User.Identity.IsAuthenticated)
                     {
 
@@ -31,7 +31,7 @@ namespace AsignacionUI
                         Response.Redirect("/Users/Login.aspx");
                     }
                 }
-               
+
             }
             catch (Exception)
             {

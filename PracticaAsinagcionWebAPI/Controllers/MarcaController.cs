@@ -8,31 +8,51 @@ namespace PracticaAsinagcionWebAPI.Controllers
 {
     public class MarcaController : ApiController
     {
-        public bool InsertarMarca([FromBody] AsignacionEntities.MarcaEntities OmarcaEntities)
+        ExcepcionesBusiness oExcepcionesBusiness = new ExcepcionesBusiness();
+        public bool estado { get; set; }
+        public IHttpActionResult Post([FromBody] AsignacionEntities.MarcaEntities OmarcaEntities)
         {
             try
             {
                 MarcaBusiness OmarcaBusiness = new MarcaBusiness();
-                return OmarcaBusiness.InsertarMarca(OmarcaEntities);
+                estado = OmarcaBusiness.InsertarMarca(OmarcaEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error registrando"));
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error registrando"));
             }
         }
         [HttpPost]
-        public bool ActualizarMarca([FromBody] AsignacionEntities.MarcaEntities OmarcaEntities)
+        public IHttpActionResult ActualizarMarca([FromBody] AsignacionEntities.MarcaEntities OmarcaEntities)
         {
             try
             {
                 MarcaBusiness OmarcaBusiness = new MarcaBusiness();
-                return OmarcaBusiness.ActualizarMarca(OmarcaEntities);
+                estado = OmarcaBusiness.ActualizarMarca(OmarcaEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error registrando"));
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error Actualizando"));
             }
         }
 

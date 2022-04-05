@@ -10,32 +10,53 @@ namespace PracticaAsinagcionWebAPI.Controllers
 {
     public class SimController : ApiController
     {
+        ExcepcionesBusiness oExcepcionesBusiness = new ExcepcionesBusiness();
+        public bool estado { get; set; }
         //captura la peticion que manda el cliente
-        public bool InsertarSim([FromBody] AsignacionEntities.SimEntities OsimEntities)
+        public IHttpActionResult Post([FromBody] AsignacionEntities.SimEntities OsimEntities)
         {
             try
             {
                 SimBusiness OsimBusiness = new SimBusiness();
-                return OsimBusiness.InsertarSim(OsimEntities);
+                estado = OsimBusiness.InsertarSim(OsimEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error registrando"));
+                }
+
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error registrando"));
             }
         }
         [HttpPost]
-        public bool ActualizarSim([FromBody] AsignacionEntities.SimEntities OsimEntities)
+        public IHttpActionResult ActualizarSim([FromBody] AsignacionEntities.SimEntities OsimEntities)
         {
             try
             {
                 SimBusiness OsimBusiness = new SimBusiness();
-                return OsimBusiness.ActualizarSim(OsimEntities);
+                estado = OsimBusiness.ActualizarSim(OsimEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error Actualizando"));
+                }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error Actualizando"));
             }
         }
         [HttpGet]

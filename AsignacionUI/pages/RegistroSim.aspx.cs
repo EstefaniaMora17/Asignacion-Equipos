@@ -7,11 +7,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AsignacionEntities;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class RegistroSim : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -40,8 +43,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
             }
         }
 
@@ -57,15 +59,18 @@ namespace AsignacionUI.pages
                     OsimEntities.planDatos = txtPlandatos.Text;
                     OsimEntities.idEstadoSim = int.Parse(DllidEstadoSim.SelectedValue);
 
-                    //invocamos al api
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/Sim/InsertarSim", OsimEntities).Result;
+                    if (OenrutarUri.PostApi("Sim/Post", OsimEntities))
+                    {
+                        lblMensaje.Text = "Registro Guardados";
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("Error registrando Sim. {0} ", OsimEntities.iccid, "{1}", 
+                            OsimEntities.min, "{2}", OsimEntities.planDatos, "{3}", OsimEntities.estadoSim));
+                    }
 
-                    lblMensaje.Text = "Registro Exitoso";
                     LimpiarCampos();
+
                 }
                 else
                 {
@@ -76,8 +81,8 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
             }
         }
         public void ConsultarEstadoSim()
@@ -167,9 +172,18 @@ namespace AsignacionUI.pages
                     OsimEntities.planDatos = txtPlandatos.Text;
                     OsimEntities.idEstadoSim = int.Parse(DllidEstadoSim.SelectedValue);
 
-                    lblMensaje.Text = "Edicion Exitosa";
-                    LimpiarCampos();
                     ocultarBotones(3);
+
+                    if (OenrutarUri.PostApi("Sim/Post", OsimEntities))
+                    {
+                        lblMensaje.Text = "Edicion Exitosa";
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Error en la edicion, por favor intenta nuevamente";
+                    }
+
+                
                 }
                 else
                 {
@@ -204,7 +218,7 @@ namespace AsignacionUI.pages
                 Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
                 mensajeExcepcion.Text = (ex.Message);
             }
-           
+
 
 
         }

@@ -9,11 +9,14 @@ using System.Web.UI.WebControls;
 using System.Web.UI;
 using System;
 using System.Text;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class ListaArea : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try

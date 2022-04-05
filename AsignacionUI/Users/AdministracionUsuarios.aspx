@@ -35,6 +35,7 @@
                                             <asp:DropDownList ID="dllRol" CssClass="select2_single form-control" runat="server">
                                                 <asp:ListItem Value="1">Soporte</asp:ListItem>
                                                 <asp:ListItem Value="2">Usuarios Administrativos</asp:ListItem>
+                                                <asp:ListItem Value="3">Coordinador</asp:ListItem>
                                             </asp:DropDownList>
                                             <asp:RequiredFieldValidator ValidationGroup="AsignarRoL" ID="RequiredFieldValidator4" runat="server" ControlToValidate="dllRol" InitialValue="0" ErrorMessage="* Campo Obligatorio" />
                                         </div>

@@ -7,11 +7,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AsignacionEntities;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class RegistroArea : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -21,27 +24,21 @@ namespace AsignacionUI.pages
                 {
                     if (User.Identity.IsAuthenticated)
                     {
-                        if (User.IsInRole("Soporte") || User.IsInRole("Coordinador"))
-                        {
-                          
-                        }
-                        else
+                        if (User.IsInRole("Usuarios Administrativos"))
                         {
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
-
                     }
                     else
                     {
                         Response.Redirect("/Users/Login.aspx");
                     }
                 }
-              
+
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
             }
         }
 
@@ -49,29 +46,22 @@ namespace AsignacionUI.pages
         {
             try
             {
-                if (ConsultarAreaIndv(int.Parse(txtidArea.Text)) == false)
-                {
+                AreaEntities OareaEntities = new AreaEntities();
+                OareaEntities.area = txtArea.Text;
 
-                    AreaEntities OareaEntities = new AreaEntities();
-                    OareaEntities.area = txtArea.Text;
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/Area/Post", OareaEntities).Result;
-                    //url del api guardar
-                    lblMensaje.Text = "Registro Guardados";
+                if(OenrutarUri.PostApi("Area/Post", OareaEntities))
+                {
+                    lblMensaje.Text = "Registro Guardado";
                 }
                 else
-                {
-                    lblMensaje.Text = "Id Area Ya Existe";
-                    txtArea.Text = "";
-                }
+                {      
+                   throw new Exception(string.Format("Error registrando área. {0}", OareaEntities.area));
+                }         
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
             }
         }
         public bool ConsultarAreaIndv(int idArea)
@@ -108,20 +98,21 @@ namespace AsignacionUI.pages
                     AreaEntities OareaEntities = new AreaEntities();
                     OareaEntities.idArea = int.Parse(txtidArea.Text);
                     OareaEntities.area = txtArea.Text;
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/Area/consultarAreaIndv", OareaEntities).Result;
-                    //url del api guardar
-
-                    lblMensaje.Text = "Edicion Exitosa";
+                    if (OenrutarUri.PostApi("Area/Post", OareaEntities))
+                    {
+                        lblMensaje.Text = "Edicion Exitosa";
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Error en la edicion, por favor intenta nuevamente";
+                    }
+                 
                 }
                 else
                 {
-                    txtidArea.Text = "";
-                    txtArea.Text = "";
+                   
                     lblMensaje.Text = "Id Area no registrado";
+                    LimpiarCampos();
                 }
 
             }
@@ -130,6 +121,11 @@ namespace AsignacionUI.pages
                 Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
                 mensajeExcepcion.Text = (ex.Message);
             }
+        }
+        public void LimpiarCampos()
+        {
+            txtidArea.Text = "";
+            txtArea.Text = "";
         }
 
 

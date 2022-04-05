@@ -10,29 +10,49 @@ namespace PracticaAsinagcionWebAPI.Controllers
 {
     public class UsuarioEquipoController : ApiController
     {
-        public bool InsertarUsuarioEquipo([FromBody] AsignacionEntities.UsuarioEquipoEntities OusuarioEquipoEntities)
+        ExcepcionesBusiness oExcepcionesBusiness = new ExcepcionesBusiness();
+        public bool estado { get; set; }
+        public IHttpActionResult Post([FromBody] AsignacionEntities.UsuarioEquipoEntities OusuarioEquipoEntities)
         {
             try
             {
                 UsuarioEquipoBusiness OusuarioEquipoBusiness = new UsuarioEquipoBusiness();
-                return OusuarioEquipoBusiness.InsertarUsuarioEquipo(OusuarioEquipoEntities);
+                estado = OusuarioEquipoBusiness.InsertarUsuarioEquipo(OusuarioEquipoEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error registrando"));
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error registrando"));
             }
         }
         [HttpPost]
-        public bool ActualizarUsuarioEquipo([FromBody] AsignacionEntities.UsuarioEquipoEntities OusuarioEquipoEntities)
+        public IHttpActionResult ActualizarUsuarioEquipo([FromBody] AsignacionEntities.UsuarioEquipoEntities OusuarioEquipoEntities)
         {
             try
             {
                 UsuarioEquipoBusiness OusuarioEquipoBusiness = new UsuarioEquipoBusiness();
-              return   OusuarioEquipoBusiness.ActualizarUsuarioEquipo(OusuarioEquipoEntities);
+              estado =   OusuarioEquipoBusiness.ActualizarUsuarioEquipo(OusuarioEquipoEntities);
+                if (estado)
+                {
+                    return Ok<string>("Registro con éxito");
+                }
+                else
+                {
+                    return InternalServerError(new Exception("Error Actualizando"));
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                oExcepcionesBusiness.Excepcion(ex);
+                return InternalServerError(new Exception("Error Actualizando"));
             }
         }
         [HttpGet]

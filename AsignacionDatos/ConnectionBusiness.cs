@@ -10,6 +10,7 @@ namespace AsignacionDatos
 {
     public class ConnectionBusiness
     {
+
         Exception Exception = new Exception();
 
         //CAMPOS
@@ -35,11 +36,14 @@ namespace AsignacionDatos
             }
             catch (Exception ex)
             {
-                ExcepcionDB.Excepcion(ex, StoredProcedure, Parameters);
+                ExcepcionDB(ex);
             }
 
             return status;
         }
+
+
+
         //CONSULTAR UN LISTA
         public dynamic QueryToList(string StoredProcedure)
         {
@@ -53,7 +57,7 @@ namespace AsignacionDatos
             }
             catch (Exception ex)
             {
-                ExcepcionDB.Excepcion(ex, StoredProcedure);
+                ExcepcionDB(ex);
             }
 
             return query;
@@ -72,7 +76,7 @@ namespace AsignacionDatos
             }
             catch (Exception ex)
             {
-                ExcepcionDB.Excepcion(ex, StoredProcedure, Parameters);
+                ExcepcionDB(ex);
             }
 
             return query;
@@ -86,12 +90,12 @@ namespace AsignacionDatos
                 using (var connection = new SqlConnection(GetConnectionString()))
                 {
                     // DAPPER EJECUTA EL PROCEDIMINETO ALMACENADO
-                    query = connection.Query<dynamic>(StoredProcedure,  commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
+                    query = connection.Query<dynamic>(StoredProcedure, commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
                 }
             }
             catch (Exception ex)
             {
-                ExcepcionDB.Excepcion(ex, StoredProcedure);
+                ExcepcionDB(ex);
             }
 
             return query;
@@ -110,7 +114,7 @@ namespace AsignacionDatos
             }
             catch (Exception ex)
             {
-                ExcepcionDB.Excepcion(ex, StoredProcedure, Parameters);
+                ExcepcionDB(ex);
             }
 
             return query;
@@ -126,11 +130,37 @@ namespace AsignacionDatos
         {
             try
             {
-                return System.Configuration.ConfigurationManager.ConnectionStrings["dbconnection"].ToString();
+                return System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
             }
             catch
             {
                 throw new Exception("Connection not configured ");
+            }
+        }
+
+        private void ExcepcionDB(Exception ex)
+        {
+            try
+            {
+
+                //SqlConnection VALIDA LA CONEXION A LA BASE DE DATOS
+                using (var connection = new SqlConnection(GetConnectionString()))
+                {
+                    // DAPPER EJECUTA EL PROCEDIMINETO ALMACENADO
+                    int count = connection.Execute("insertarExcepciones", new DynamicParameters(new Dictionary<string, object>
+                        {
+                                { "@excepciones", string.Concat(ex.Message,ex.InnerException,ex.StackTrace) }
+                            }), commandType: System.Data.CommandType.StoredProcedure);
+
+                    //if (count > 0)
+                    //{
+                    //    status = true;
+                    //}
+                }
+            }
+            catch (Exception)
+            {
+                //guardar log en txt
             }
         }
     }

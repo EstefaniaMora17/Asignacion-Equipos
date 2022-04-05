@@ -18,5 +18,21 @@ namespace AsignacionBusiness
 
             return OconnectionBusiness.Execute("insertarExcepciones", parameters);
         }
+
+        public void Excepcion(Exception exception)
+        {
+            try
+            {
+               parameters.Add("excepciones", string.Concat(exception.Message, exception.InnerException, exception.StackTrace));
+
+                OconnectionBusiness.Execute("insertarExcepciones", parameters);
+            }
+            catch (Exception )
+            {
+                //guardar log en txt
+            }
+
+        }
+
     }
 }

@@ -7,11 +7,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using AsignacionEntities;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class RegistroEstadoSim : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -21,12 +24,9 @@ namespace AsignacionUI.pages
                 {
                     if (User.Identity.IsAuthenticated)
                     {
-                        if (User.IsInRole("Soporte") || User.IsInRole("Coordinador"))
+                        if (User.IsInRole("Usuarios Administrativos") )
                         {
-                            
-                        }
-                        else
-                        {
+
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
 
@@ -39,8 +39,7 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
             }
         }
 
@@ -48,30 +47,26 @@ namespace AsignacionUI.pages
         {
             try
             {
-                if (ConsultarEstadoSimIndv(int.Parse(txtidEstadoSim.Text)) == false)
-                {
+               
                     EstadoSimEntities OestadoSimEntities = new EstadoSimEntities();
                     OestadoSimEntities.estadoSim = txtEstadoSim.Text;
 
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/EstadoSim/ConsultarEstadoSim", OestadoSimEntities).Result;
-                    //url del api guardar
-                    lblMensaje.Text = "Registro Exitoso";
-                }
-                else
-                {
-                    lblMensaje.Text = "id Estado Sim Ya Existe";
-                    txtidEstadoSim.Text = "";
-                    txtEstadoSim.Text = "";
-                }
+                    if (OenrutarUri.PostApi("EstadoSim/Post", OestadoSimEntities))
+                    {
+                        lblMensaje.Text = "Registro Guardados";
+                    }
+                    else
+                    {
+                        throw new Exception(string.Format("Error registrando Estado Sim. {0} ",
+                        OestadoSimEntities.estadoSim));
+                    }
+                   
+               
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
             }
           
         }
