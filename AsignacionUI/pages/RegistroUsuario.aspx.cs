@@ -13,7 +13,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegitroUsuario : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+        
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,6 +45,7 @@ namespace AsignacionUI.pages
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
 
         }
@@ -65,7 +66,7 @@ namespace AsignacionUI.pages
 
                     if (OenrutarUri.PostApi("Usuarios/Post", OusuariosEntities))
                     {
-                        lblMensaje.Text = "Registro Guardados";
+                        lblMensaje.Text = "Registro Guardado";
                     }
                     else
                     {
@@ -92,12 +93,8 @@ namespace AsignacionUI.pages
         }
         public void ConsultarArea()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Area/consultarArea");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("Area/consultarArea");
+            
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<AreaEntities[]>();
@@ -111,16 +108,12 @@ namespace AsignacionUI.pages
                     DLLidArea.Items.Insert(0, new ListItem("Seleccione area", "0"));
                     DLLidArea.Dispose();
                 }
-            }
+            
         }
         public void ConsultarCargo()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Cargo/ConsultarCargo");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("Cargo/ConsultarCargo");
+            
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<CargoEntities[]>();
@@ -134,17 +127,13 @@ namespace AsignacionUI.pages
                     DLLidCargo.Items.Insert(0, new ListItem("Seleccione cargo", "0"));
                     DLLidCargo.Dispose();
                 }
-            }
+            
         }
         public bool ConsultarUsuarioIndv(string cedula)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Usuarios/ConsultarUsuarioIndv?cedula=" + cedula + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("Usuarios/ConsultarUsuarioIndv?cedula=" + cedula + "");
+           
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<UsuariosEntities>();
@@ -156,18 +145,14 @@ namespace AsignacionUI.pages
                     }
 
                 }
-            }
+            
             return estado;
         }
-        public bool ConsultarUsuario(string cedula)
+        public bool ConsultarUsuarioBuscar(string cedula)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Usuarios/ConsultarUsuarioIndv?cedula=" + cedula + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("Usuarios/ConsultarUsuarioIndv?cedula=" + cedula + "");
+            
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<UsuariosEntities>();
@@ -183,7 +168,7 @@ namespace AsignacionUI.pages
                         estado = true;
                     }
                 }
-            }
+            
             return estado;
         }
         protected void btnEditar_Click(object sender, EventArgs e)
@@ -200,7 +185,7 @@ namespace AsignacionUI.pages
                     OusuariosEntities.idArea = int.Parse(DLLidArea.SelectedValue);
                     OusuariosEntities.idcargo = int.Parse(DLLidCargo.SelectedValue);
 
-                    if (OenrutarUri.PostApi("Usuarios/Post", OusuariosEntities))
+                    if (OenrutarUri.PostApi("/Usuarios/ActualizarUsuarios", OusuariosEntities))
                     {
                         lblMensaje.Text = "Edicion Exitosa";
                     }
@@ -211,19 +196,20 @@ namespace AsignacionUI.pages
 
                   
                     ocultarBotones(3);
-
+                    LimpiarCampos();
                 }
                 else
                 {
                     lblMensaje.Text = "cedula no Registrada";
-                    LimpiarCampos();
+                    
                 }
 
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
         }
         private void LimpiarCampos()
@@ -241,7 +227,7 @@ namespace AsignacionUI.pages
         {
             try
             {
-                if (ConsultarUsuario(txtCedula.Text) == true)
+                if (ConsultarUsuarioBuscar(txtCedula.Text) == true)
                 {
 
                     lblMensaje.Text = "Datos Encontrados";
@@ -254,8 +240,9 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
 
         }

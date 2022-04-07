@@ -6,9 +6,17 @@
         <div class="col-xl-12 order-xl-1">
             <div class="card">
                 <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <h3 class="mb-0">Registro de Sim</h3>
+                    <div class="row">
+                        <div class=" align-items-center">
+                            <div class="col-12">
+                                <h3 class="mb-0">Registro de Sim</h3>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="lblMensaje" runat="server" Text="" CssClass="diseñoMsj"></asp:Label>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="mensajeExcepcion" runat="server" Text="" CssClass="diseñoMsj"></asp:Label>
                         </div>
                     </div>
                 </div>
@@ -64,15 +72,7 @@
                             <asp:Button ID="btnBucar" CssClass="btn btn-outline-danger" OnClick="btnBucar_Click" runat="server" Text="Buscar" ValidationGroup="txtIccid" />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
-                        </div>
-                        <div class="col">
-                            <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
-                        </div>
 
-                    </div>
                 </div>
             </div>
         </div>

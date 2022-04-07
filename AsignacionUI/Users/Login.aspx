@@ -20,11 +20,11 @@
     <!-- Argon CSS -->
     <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
 
-     <script type="text/javascript">
-         function preventBack() { window.history.forward(); }
-         setTimeout("preventBack()", 0);
-         window.onunload = function () { null };
-     </script>
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
 </head>
 
 
@@ -35,24 +35,28 @@
         <!-- Header -->
         <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
             <div class="container">
-                <div class="header-body text-center mb-7">
-                    <div class="row justify-content-center">
-                <%--     <img alt="Image placeholder" src="../assets/img/theme/SserCom.png">--%>
-                    </div>
-                </div>
             </div>
             <div class="separator separator-bottom separator-skew zindex-100">
                 <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
                 </svg>
+                  
             </div>
+              <div class="header-body text-center">
+                        <div class="row justify-content-center">
+                             <img alt="Image placeholder" src="../assets/img/theme/sercomunicaciones.png">
+                        </div>
+                    </div> 
         </div>
+         
         <!-- Page content -->
-        <div class="container mt--8 pb-5">
+        <div class="container mt--8">
             <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-7">
+                <div class="col-lg-5 col-md-7 pb-5">
+                    
                     <div class="card bg-secondary border-0 mb-0">
                         <div class="card-body px-lg-5 py-lg-5">
+                        
                             <div class="text-center text-muted mb-4">
                                 <h1>Inciar Sesion</h1>
                             </div>
@@ -78,14 +82,9 @@
                                 </div>
 
                             </form>
-                              <div>
+                            <div>
                                 <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3 ">
-                        <div class="col-6">
-                            <a href="#" class="text-light"><small>Forgot password?</small></a>
                         </div>
                     </div>
                 </div>

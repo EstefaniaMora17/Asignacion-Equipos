@@ -13,7 +13,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroEstadoEquipo : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+     
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,17 +28,25 @@ namespace AsignacionUI.pages
                         {
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
+                        else
+                        {
+                            ConsultaListEstadoEquipo();
+                        }
+
 
                     }
                     else
                     {
                         Response.Redirect("/Users/Login.aspx");
                     }
+
+
                 }
             }
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -51,7 +59,7 @@ namespace AsignacionUI.pages
 
                 if (OenrutarUri.PostApi("EstadoEquipo/Post", OestadoEquipoEntities))
                 {
-                    lblMensaje.Text = "Registro Guardados";
+                    lblMensaje.Text = "Registro Guardado";
                 }
                 else
                 {
@@ -69,12 +77,8 @@ namespace AsignacionUI.pages
         public bool ConsultarEstadoEquipoIndv(int idEstadoEquipo)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/EstadoEquipo/ConsultarEstadoEquipoIndv?idEstadoEquipo=" + idEstadoEquipo + "");
+            var result = OenrutarUri.GetApi("/EstadoEquipo/ConsultarEstadoEquipoIndv?idEstadoEquipo=" + idEstadoEquipo + "");
 
-                var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<EstadoEquipoEntities>();
@@ -89,42 +93,72 @@ namespace AsignacionUI.pages
 
                 }
                 return estado;
-            }
+            
         }
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ConsultarEstadoEquipoIndv(int.Parse(txtidEstadoEquipo.Text)) == true)
+                if (ConsultarEstadoEquipoIndv(int.Parse(DllestadoEquipo.SelectedValue)) == true)
                 {
                     EstadoEquipoEntities OestadoEquipoEntities = new EstadoEquipoEntities();
-                    OestadoEquipoEntities.idEstadoEquipo = int.Parse(txtidEstadoEquipo.Text);
-                    OestadoEquipoEntities.estadoEquipo = txtestadoEquipo.Text;
+                    OestadoEquipoEntities.idEstadoEquipo = int.Parse(DllestadoEquipo.SelectedValue);
+                    OestadoEquipoEntities.estadoEquipo = txtEstadoEquipoUpdate.Text;
 
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/EstadoEquipo/ActualizarEstadoEquipo", OestadoEquipoEntities).Result;
-                    //url del api guardar
+                    if (OenrutarUri.PostApi("/EstadoEquipo/ActualizarEstadoEquipo", OestadoEquipoEntities))
+                    {
+                        lblMensaje.Text = "Edicion Exitosa";
+                        ConsultaListEstadoEquipo();
+                        txtEstadoEquipoUpdate.Text = string.Empty;
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Error en la edicion, por favor intenta nuevamente";
+                    }
 
-                    lblMensaje.Text = "Edicion Exitosa";
                 }
                 else
                 {
-                    lblMensaje.Text = "id Estado Equipo No Registrado";
-                    txtidEstadoEquipo.Text = "";
-                    txtestadoEquipo.Text = "";
+
+                    lblMensaje.Text = "Id Estado Equipo no registrado";
+                    LimpiarCampos();
                 }
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
-          
+
 
         }
-       
+        public void LimpiarCampos()
+        {
+
+            txtestadoEquipo.Text = "";
+        }
+
+
+        public void ConsultaListEstadoEquipo()
+        {
+            var result = OenrutarUri.GetApi("/EstadoEquipo/ConsultarEstadoEquipo");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<EstadoEquipoEntities[]>();
+
+                var estadoEquipo = readTask.Result;
+
+                DllestadoEquipo.DataSource = estadoEquipo;
+                DllestadoEquipo.DataTextField = "estadoEquipo";
+                DllestadoEquipo.DataValueField = "idEstadoEquipo";
+                DllestadoEquipo.DataBind();
+                DllestadoEquipo.Items.Insert(0, new ListItem("Seleccione Estado Equipo", "0"));
+                DllestadoEquipo.Dispose();
+            }
+
+        }
     }
 }

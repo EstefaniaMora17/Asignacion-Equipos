@@ -49,6 +49,7 @@ namespace AsignacionUI.pages
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -76,7 +77,7 @@ namespace AsignacionUI.pages
 
                 if (OenrutarUri.PostApi("UsuarioEquipo/Post", OusuarioEquipoEntities))
                 {
-                    lblMensaje.Text = "Registro Guardados";
+                    lblMensaje.Text = "Registro Guardado";
                 }
                 else
                 {
@@ -97,12 +98,8 @@ namespace AsignacionUI.pages
         }
         public void ConsultarEstadoEquipo()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/EstadoEquipo/ConsultarEstadoEquipo");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/EstadoEquipo/ConsultarEstadoEquipo");
+           
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<EstadoEquipoEntities[]>();
@@ -116,16 +113,13 @@ namespace AsignacionUI.pages
                     DLLidestadoEquipo.Items.Insert(0, new ListItem("Seleccione Estado Equipo", "0"));
                     DLLidestadoEquipo.Dispose();
                 }
-            }
+            
         }
         public void ConsultarEstadoSim()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/EstadoSim/ConsultarEstadoSim");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/EstadoSim/ConsultarEstadoSim");
+            
+            
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<EstadoSimEntities[]>();
@@ -139,17 +133,13 @@ namespace AsignacionUI.pages
                     DLLidestadoSim.Items.Insert(0, new ListItem("Seleccione Estado Sim", "0"));
                     DLLidestadoSim.Dispose();
                 }
-            }
+            
         }
         public void ConsultarUsuario()
         {
+            var result = OenrutarUri.GetApi("/Usuarios/ConsultarUsuario");
 
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Usuarios/ConsultarUsuario");
-
-                var result = responseTask.Result;
+          
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<UsuariosEntities[]>();
@@ -164,16 +154,12 @@ namespace AsignacionUI.pages
 
 
                 }
-            }
+            
         }
         public void ConsultarEquipo()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Equipo/consultarEquipos");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/Equipo/consultarEquipos");
+          
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<EquipoEntities[]>();
@@ -185,16 +171,12 @@ namespace AsignacionUI.pages
                     DLLimei.Items.Insert(0, new ListItem("Seleccione imei", "0"));
                     DLLimei.Dispose();
                 }
-            }
+            
         }
         public void ConsultarSim()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Sim/ConsultarSim");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/Sim/ConsultarSim");
+            
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<SimEntities[]>();
@@ -206,17 +188,13 @@ namespace AsignacionUI.pages
                     DLLiccid.Items.Insert(0, new ListItem("Seleccione iccid", "0"));
                     DLLiccid.Dispose();
                 }
-            }
+            
         }
         public bool ConsultarUsuarioEquipoIndv(int id)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/UsuarioEquipo/ConsultarUsuarioEquipoIndv/{id}?id=" + id + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/UsuarioEquipo/ConsultarUsuarioEquipoIndv/{id}?id=" + id + "");
+          
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<UsuarioEquipoEntities>();
@@ -242,7 +220,7 @@ namespace AsignacionUI.pages
                         estado = true;
                     }
                 }
-            }
+            
             return estado;
         }
 
@@ -263,8 +241,9 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
 
         }

@@ -17,20 +17,20 @@ namespace AsignacionUI.Users
         {
             try
             {
-                if (!IsPostBack)
-                {
-                    if (User.Identity.IsAuthenticated)
-                    {
-                        if (!User.IsInRole("Coordinador"))
-                        {
-                            Response.Redirect("NoAutorizado.aspx");
-                        }
-                    }
-                    else
-                    {
-                        Response.Redirect("../Users/Login.aspx");
-                    }
-                }
+                ////if (!IsPostBack)
+                ////{
+                ////    if (User.Identity.IsAuthenticated)
+                ////    {
+                ////        if (!User.IsInRole("Coordinador"))
+                ////        {
+                ////            Response.Redirect("NoAutorizado.aspx");
+                ////        }
+                ////    }
+                ////    else
+                ////    {
+                ////        Response.Redirect("../Users/Login.aspx");
+                ////    }
+                ////}
             }
             catch (Exception ex)
             {

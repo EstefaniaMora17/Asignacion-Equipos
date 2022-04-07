@@ -33,10 +33,11 @@ namespace AsignacionUI
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
         protected void btnCerrar_Click(object sender, EventArgs e)

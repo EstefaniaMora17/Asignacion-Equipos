@@ -54,7 +54,7 @@ namespace AsignacionUI.pages
                 }
                 else
                 {
-                    Mensaje.Text = "No se encontró el usuario";
+                    Mensaje.Text = "Usuario o contraseña no coinciden";
 
                 }
             }

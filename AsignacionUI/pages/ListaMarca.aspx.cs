@@ -7,11 +7,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class ListaMarca : System.Web.UI.Page
     {
         excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -38,19 +42,15 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         
         }
         public void ConsultarMarca()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Marca/ConsultarMarca");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("Marca/ConsultarMarca");
+          
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<MarcaEntities[]>();
@@ -84,4 +84,3 @@ namespace AsignacionUI.pages
 
         }
     }
-}

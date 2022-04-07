@@ -13,7 +13,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroEstadoSim : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+        
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,22 +24,30 @@ namespace AsignacionUI.pages
                 {
                     if (User.Identity.IsAuthenticated)
                     {
-                        if (User.IsInRole("Usuarios Administrativos") )
+                        if (User.IsInRole("Usuarios Administrativos"))
                         {
-
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
+                        else
+                        {
+                            ConsultaListEstadoSim();
+                        }
+
 
                     }
                     else
                     {
                         Response.Redirect("/Users/Login.aspx");
                     }
+
+
                 }
+
             }
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -47,38 +55,34 @@ namespace AsignacionUI.pages
         {
             try
             {
-               
-                    EstadoSimEntities OestadoSimEntities = new EstadoSimEntities();
-                    OestadoSimEntities.estadoSim = txtEstadoSim.Text;
 
-                    if (OenrutarUri.PostApi("EstadoSim/Post", OestadoSimEntities))
-                    {
-                        lblMensaje.Text = "Registro Guardados";
-                    }
-                    else
-                    {
-                        throw new Exception(string.Format("Error registrando Estado Sim. {0} ",
-                        OestadoSimEntities.estadoSim));
-                    }
-                   
-               
+                EstadoSimEntities OestadoSimEntities = new EstadoSimEntities();
+                OestadoSimEntities.estadoSim = txtEstadoSim.Text;
+
+                if (OenrutarUri.PostApi("EstadoSim/Post", OestadoSimEntities))
+                {
+                    lblMensaje.Text = "Registro Guardado";
+                }
+                else
+                {
+                    throw new Exception(string.Format("Error registrando Estado Sim. {0} ",
+                    OestadoSimEntities.estadoSim));
+                }
+
+
             }
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
                 lblMensaje.Text = "Error registrando, por favor intenta nuevamente";
             }
-          
+
         }
         public bool ConsultarEstadoSimIndv(int idEstadoSim)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/EstadoSim/ConsultarEstadoSimIndv?idEstadoSim=" + idEstadoSim + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi(("/EstadoSim/ConsultarEstadoSimIndv?idEstadoSim=" + idEstadoSim + ""));
+           
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<EstadoSimEntities>();
@@ -93,42 +97,72 @@ namespace AsignacionUI.pages
 
                 }
                 return estado;
-            }
+            
         }
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ConsultarEstadoSimIndv(int.Parse(txtidEstadoSim.Text)) == true)
+                if (ConsultarEstadoSimIndv(int.Parse(DllEstadoSim.SelectedValue)) == true)
                 {
                     EstadoSimEntities OestadoSimEntities = new EstadoSimEntities();
-                    OestadoSimEntities.idEstadoSim = int.Parse(txtidEstadoSim.Text);
-                    OestadoSimEntities.estadoSim = txtEstadoSim.Text;
+                    OestadoSimEntities.idEstadoSim = int.Parse(DllEstadoSim.SelectedValue);
+                    OestadoSimEntities.estadoSim = txtEstadoSimUpdate.Text;
+                    if (OenrutarUri.PostApi("/EstadoSim/ActaulizarEstadoSim", OestadoSimEntities))
+                    {
+                        lblMensaje.Text = "Edicion Exitosa";
+                        ConsultaListEstadoSim();
+                        txtEstadoSimUpdate.Text = string.Empty;
+                        LimpiarCampos();
+                    }
+                    else
+                    {
+                        lblMensaje.Text = "Error en la edicion, por favor intenta nuevamente";
+                    }
 
-                    HttpClient client = new HttpClient();
-                    client.BaseAddress = new Uri("https://localhost:44335");
-                    //url del proyecto webApi
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    HttpResponseMessage response = client.PostAsJsonAsync("/api/EstadoSim/ActaulizarEstadoSim", OestadoSimEntities).Result;
-                    //url del api guardar
-
-                    lblMensaje.Text = "Edicion Exitosa";
                 }
                 else
                 {
-                    lblMensaje.Text = "id Estado Sim No Registrado";
-                    txtidEstadoSim.Text = "";
-                    txtEstadoSim.Text = "";
+
+                    lblMensaje.Text = "Id Estado Sim no registrado";
+                    LimpiarCampos();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
-            }
-        
-        }
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
 
+            }
+          
+
+        }
+        public void LimpiarCampos()
+        {
+
+            txtEstadoSim.Text = "";
+            txtEstadoSimUpdate.Text = "";
+            DllEstadoSim.SelectedIndex = 0;
+        }
+        public void ConsultaListEstadoSim()
+        {
+            var result = OenrutarUri.GetApi("/EstadoSim/ConsultarEstadoSim");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<EstadoSimEntities[]>();
+
+                var estadoSim = readTask.Result;
+
+                DllEstadoSim.DataSource = estadoSim;
+                DllEstadoSim.DataTextField = "estadoSim";
+                DllEstadoSim.DataValueField = "idEstadoSim";
+                DllEstadoSim.DataBind();
+                DllEstadoSim.Items.Insert(0, new ListItem("Seleccione Estado Sim", "0"));
+                DllEstadoSim.Dispose();
+            }
+
+        }
     }
 }

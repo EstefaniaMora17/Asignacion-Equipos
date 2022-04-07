@@ -15,7 +15,7 @@
                         </div>
                       
                         <div class="row justify-content-center">
-                            <img alt="Image placeholder" src="../assets/img/theme/sercomunicacionesCell.jpg" class="imagen">
+                            <img alt="Image placeholder" src="../assets/img/theme/sercomunicacionesCell.png" class="imagen">
                         </div>
 
                     </div>

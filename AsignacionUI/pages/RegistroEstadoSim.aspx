@@ -5,48 +5,81 @@
         <div class="col-xl-12 order-xl-1">
             <div class="card">
                 <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col-8">
-                            <h3 class="mb-0">Registro de Estado Sim</h3>
+                    <div class="row">
+                        <div class=" align-items-center">
+                            <div class="col-12">
+                                <h3 class="mb-0">Registro de Estado Sim</h3>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="lblMensaje" runat="server" Text="" CssClass="diseñoMsj"></asp:Label>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="mensajeExcepcion" runat="server" Text="" CssClass="diseñoMsj"></asp:Label>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h6 class="heading-small text-muted mb-4">Informacion Estado Sim</h6>
-                    <div class="pl-lg-4">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-username">Id Estado Sim</label>  <asp:Label ID="Label2" class="mensajeID" runat="server" Text="*este campo solo se utiliza para Editar"></asp:Label>
-                                    <asp:TextBox ID="txtidEstadoSim" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtidEstadoSim" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="id"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label class="form-control-label" for="input-username">Estado Sim</label>
-                                    <asp:TextBox ID="txtEstadoSim" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="reqUserName" ControlToValidate="txtEstadoSim" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="campo"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col  d-flex justify-content-center ">
-                                <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnGuardar_Click" runat="server" Text="Guardar" ValidationGroup="campo" />
-                            </div>
-                            <div class="col  d-flex justify-content-center ">
-                                <asp:Button ID="btnEditar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnEditar_Click" runat="server" Text="Editar" ValidationGroup="id" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
-                            </div>
-                            <div class="col">
-                                <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
-                            </div>
+                    <div class="nav-wrapper">
+                        <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">Registrar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">Actualizar</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                    <div class="row">
 
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-username">Estado Sim</label>
+                                                <asp:TextBox ID="txtEstadoSim" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEstadoSim" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="GuardarCampo"></asp:RequiredFieldValidator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col  d-flex justify-content-center">
+                                            <asp:Button ID="btnGuardar" CssClass="btn btn-outline-danger btnmargin" OnClick="btnGuardar_Click" runat="server" Text="Guardar" ValidationGroup="GuardarCampo" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-username">Estado Sim</label>
+                                                <asp:DropDownList ID="DllEstadoSim" CssClass="form-control" runat="server">
+                                                </asp:DropDownList>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="DllEstadoSim" runat="server" ErrorMessage="* Campo Obligatorio" InitialValue="0" ValidationGroup="ActualizarEstadoSim"></asp:RequiredFieldValidator>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-username">Estado Sim</label>
+                                                <asp:TextBox ID="txtEstadoSimUpdate" CssClass="form-control" runat="server"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtEstadoSimUpdate" runat="server" ErrorMessage="* Campo Obligatorio" ValidationGroup="ActualizarEstadoSim"></asp:RequiredFieldValidator>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col  d-flex justify-content-center ">
+                                            <asp:Button ID="Button2" CssClass="btn btn-outline-danger btnmargin" OnClick="btnEditar_Click" runat="server" Text="Editar" ValidationGroup="ActualizarEstadoSim" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

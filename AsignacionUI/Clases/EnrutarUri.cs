@@ -34,18 +34,17 @@ namespace AsignacionUI.Clases
                 excepciones.capturarExcepcion(ex);
                 return false;
             }
-           
+
         }
 
-        public void GetApi(string metodo)
+        public HttpResponseMessage GetApi(string metodo)
         {
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync(string.Format("/api/{0}"));
-
-                var result = responseTask.Result;
+                var responseTask = client.GetAsync(string.Format("/api/{0}", metodo));
+                return responseTask.Result;
 
             }
 

@@ -13,7 +13,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroMarca : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+       
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,23 +21,32 @@ namespace AsignacionUI.pages
             {
                 if (!IsPostBack)
                 {
-                    if (User.Identity.IsAuthenticated )
+                    if (User.Identity.IsAuthenticated)
                     {
                         if (User.IsInRole("Usuarios Administrativos"))
                         {
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
-                        
+                        else
+                        {
+                            ConsultaListMarca();
+                        }
+
+
                     }
                     else
                     {
                         Response.Redirect("/Users/Login.aspx");
                     }
+
                 }
+
+            
             }
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -51,7 +60,7 @@ namespace AsignacionUI.pages
 
                     if (OenrutarUri.PostApi("Marca/Post", OmarcaEntitites))
                     {
-                        lblMensaje.Text = "Registro Exitoso";
+                        lblMensaje.Text = "Registro Guardado";
                     }
                     else
                     {
@@ -68,12 +77,8 @@ namespace AsignacionUI.pages
         public bool ConsultarMarcaIndv(int idMarca)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Marca/ConsultarMarcaIndv?idMarca=" + idMarca + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/Marca/ConsultarMarcaIndv?idMarca=" + idMarca + "");
+           
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<MarcaEntities>();
@@ -88,21 +93,24 @@ namespace AsignacionUI.pages
 
                 }
                 return estado;
-            }
+            
         }
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             try
             {
-                if(ConsultarMarcaIndv(int.Parse(txtidMarca.Text)) == true)
+                if(ConsultarMarcaIndv(int.Parse(DllMarca.SelectedValue)) == true)
                 {
                     MarcaEntities OmarcaEntitites = new MarcaEntities();
-                    OmarcaEntitites.idMarca = int.Parse(txtidMarca.Text);
-                    OmarcaEntitites.marca = txtMarca.Text;
+                    OmarcaEntitites.idMarca = int.Parse(DllMarca.SelectedValue);
+                    OmarcaEntitites.marca = txtMarcaUpdate.Text;
 
-                    if (OenrutarUri.PostApi("Marca/Post", OmarcaEntitites))
+                    if (OenrutarUri.PostApi("/Marca/ActualizarMarca", OmarcaEntitites))
                     {
                         lblMensaje.Text = "Edicion Exitosa";
+                        ConsultaListMarca();
+                        txtMarcaUpdate.Text = string.Empty;
+
                     }
                     else
                     {
@@ -118,16 +126,35 @@ namespace AsignacionUI.pages
                 }
 
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
         }
         public void LimpiarCampos()
         {
-            txtidMarca.Text = "";
             txtMarca.Text = "";
+        }
+        public void ConsultaListMarca()
+        {
+            var result = OenrutarUri.GetApi("/Marca/ConsultarMarca");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<MarcaEntities[]>();
+
+                var marca = readTask.Result;
+
+                DllMarca.DataSource = marca;
+                DllMarca.DataTextField = "marca";
+                DllMarca.DataValueField = "idMarca";
+                DllMarca.DataBind();
+                DllMarca.Items.Insert(0, new ListItem("Seleccione Marca", "0"));
+                DllMarca.Dispose();
+            }
+
         }
     }
  }

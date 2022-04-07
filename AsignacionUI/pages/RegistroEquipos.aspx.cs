@@ -15,7 +15,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroEquipos : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+        
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,6 +48,7 @@ namespace AsignacionUI.pages
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -73,7 +74,7 @@ namespace AsignacionUI.pages
 
                     if (OenrutarUri.PostApi("Equipo/Post", OequipoEntities))
                     {
-                        lblMensaje.Text = "Registro Guardados";
+                        lblMensaje.Text = "Registro Guardado";
                     }
                   
                     else
@@ -102,15 +103,8 @@ namespace AsignacionUI.pages
         }
         public void ConsultarEstadoEquipo()
         {
-            //invocamos el api
-            using (var client = new HttpClient())
-            {
-                //capturado la url del web api
-                client.BaseAddress = new Uri("https://localhost:44335");
-                //caputurando la url del api actualizar
-                var responseTask = client.GetAsync("/api/EstadoEquipo/ConsultarEstadoEquipo");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/EstadoEquipo/ConsultarEstadoEquipo");
+        
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<EstadoEquipoEntities[]>();
@@ -124,16 +118,12 @@ namespace AsignacionUI.pages
                     DLLidEstadoEquipo.Items.Insert(0, new ListItem("Seleccione Estado Equipo", "0"));
                     DLLidEstadoEquipo.Dispose();
                 }
-            }
+            
         }
         public void ConsultarUbicacionEquipo()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/UbicacionEquipo/ConsultarUbicacionEquipo");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/UbicacionEquipo/ConsultarUbicacionEquipo");
+          
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<UbicacionEquipoEntities[]>();
@@ -147,16 +137,12 @@ namespace AsignacionUI.pages
                     DLLidUbicacionEquipo.Items.Insert(0, new ListItem("Seleccione Ubicacion Equipo", "0"));
                     DLLidUbicacionEquipo.Dispose();
                 }
-            }
+            
         }
         public void ConsultarMarca()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Marca/ConsultarMarca");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/Marca/ConsultarMarca");
+           
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<MarcaEntities[]>();
@@ -170,19 +156,13 @@ namespace AsignacionUI.pages
                     DLLidMarca.Items.Insert(0, new ListItem("Seleccione Marca", "0"));
                     DLLidMarca.Dispose();
                 }
-            }
+            
         }
         public bool ConsultarEquipoIndv(string imei)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                //url del pryecto web api
-                client.BaseAddress = new Uri("https://localhost:44335");
-                //url del 
-                var responseTask = client.GetAsync("/api/Equipo/ConsultarEquipoIndv?imei=" + imei + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("Equipo/ConsultarEquipoIndv?imei=" + imei + "");
+           
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<EquipoEntities>();
@@ -194,20 +174,14 @@ namespace AsignacionUI.pages
                         estado = true;
                     }
                 }
-            }
+            
             return estado;
         }
-        public bool ConsultarEquipo(string imei)
+        public bool ConsultarEquipoBuscar(string imei)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                //url del pryecto web api
-                client.BaseAddress = new Uri("https://localhost:44335");
-                //url del 
-                var responseTask = client.GetAsync("/api/Equipo/ConsultarEquipoIndv?imei=" + imei + "");
+            var result = OenrutarUri.GetApi("Equipo/ConsultarEquipoIndv?imei=" + imei + "");
 
-                var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
                                     //convierte la infromacion
@@ -229,7 +203,7 @@ namespace AsignacionUI.pages
                         estado = true;
                     }
                 }
-            }
+            
             return estado;
         }
 
@@ -252,7 +226,7 @@ namespace AsignacionUI.pages
                     OequipoEntities.idMarca = int.Parse(DLLidMarca.SelectedValue);
                     OequipoEntities.Precio = txtPrecio.Text;
 
-                    if (OenrutarUri.PostApi("/api/Equipo", OequipoEntities))
+                    if (OenrutarUri.PostApi("/Equipo/ActualizarEquipo", OequipoEntities))
                     {
                         lblMensaje.Text = "Edicion Exitosa";
                     }
@@ -260,23 +234,23 @@ namespace AsignacionUI.pages
                     {
                         lblMensaje.Text = "Error en la edicion, por favor intenta nuevamente";
                     }
-
-
-                 
                     LimpiarCampos();
                     ocultarBotones(3);
+ 
                 }
                 else
                 {
-                    LimpiarCampos();
+                    lblMensaje.Text = "No se puedo realizar la edición";
+                
                     
                 }
 
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
 
 
@@ -286,7 +260,7 @@ namespace AsignacionUI.pages
         {
             try
             {
-                if (ConsultarEquipo(txtImei.Text) == true)
+                if (ConsultarEquipoBuscar(txtImei.Text) == true)
                 {
                     lblMensaje.Text = "Datos Encontrados";
                     ocultarBotones(2);
@@ -300,11 +274,12 @@ namespace AsignacionUI.pages
             }
             catch(Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
-          
-           
+
+
         }
         public void LimpiarCampos()
         {

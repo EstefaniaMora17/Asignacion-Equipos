@@ -6,10 +6,18 @@
         <div class="col-xl-12 order-xl-1">
             <div class="card">
                 <div class="card-header">
-                    <div class="row align-items-center">
-                        <div class="col-md-8">
-                            <h3 class="mb-0">Registro de Equipos </h3>
+                   <div class="row">
+                        <div class=" align-items-center">
+                            <div class="col-12">
+                                <h3 class="mb-0">Registro de Equipo</h3>
+                            </div>  
                         </div>
+                        <div class="col">
+                            <asp:Label ID="lblMensaje" runat="server" Text="" CssClass="diseñoMsj"></asp:Label>
+                        </div>
+                        <div class="col">
+                            <asp:Label ID="mensajeExcepcion" runat="server" Text="" CssClass="diseñoMsj"></asp:Label>
+                        </div>  
                     </div>
                 </div>
                 <div class="card-body">
@@ -123,15 +131,7 @@
                             <asp:Button ID="btnBuscar" CssClass="btn btn-outline-danger" runat="server" OnClick="btnBuscar_Click" Text="Buscar" ValidationGroup="imei" />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
-                        </div>
-                        <div class="col">
-                            <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
-                        </div>
-
-                    </div>
+                    
 
                 </div>
             </div>

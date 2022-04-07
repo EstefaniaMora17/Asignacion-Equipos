@@ -15,7 +15,7 @@ namespace AsignacionUI.pages
 {
     public partial class ListaArea : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+      
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,20 +43,17 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
 
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+               
             }
         }
     
         public void ConsultarArea()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Area/consultarArea");
+            var result = OenrutarUri.GetApi("Area/consultarArea");
 
-                var result = responseTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<AreaEntities[]>();
@@ -87,4 +84,3 @@ namespace AsignacionUI.pages
          
         }
     }
-}

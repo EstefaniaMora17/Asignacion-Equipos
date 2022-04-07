@@ -13,7 +13,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroArea : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+        
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,17 +28,26 @@ namespace AsignacionUI.pages
                         {
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
+                        else
+                        {
+                            ConsultaListArea();
+                        }
+
+
                     }
                     else
                     {
                         Response.Redirect("/Users/Login.aspx");
                     }
+                   
+                    
                 }
 
             }
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -66,13 +75,10 @@ namespace AsignacionUI.pages
         }
         public bool ConsultarAreaIndv(int idArea)
         {
-            bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Area/ConsultarAreaIndv?idArea=" + idArea + "");
 
-                var result = responseTask.Result;
+            bool estado = false;
+            var result = OenrutarUri.GetApi("/Area/consultarAreaIndv?idArea=" + idArea + "");
+            
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<AreaEntities>();
@@ -87,20 +93,23 @@ namespace AsignacionUI.pages
 
                 }
                 return estado;
-            }
+            
         }
+       
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ConsultarAreaIndv(int.Parse(txtidArea.Text))== true){
+                if (ConsultarAreaIndv(int.Parse(DllArea.SelectedValue))== true){
 
                     AreaEntities OareaEntities = new AreaEntities();
-                    OareaEntities.idArea = int.Parse(txtidArea.Text);
-                    OareaEntities.area = txtArea.Text;
-                    if (OenrutarUri.PostApi("Area/Post", OareaEntities))
+                    OareaEntities.idArea = int.Parse(DllArea.SelectedValue);
+                    OareaEntities.area = txtAreaUpdate.Text;
+                    if (OenrutarUri.PostApi("/Area/ActualizarArea", OareaEntities))
                     {
                         lblMensaje.Text = "Edicion Exitosa";
+                        ConsultaListArea();
+                        txtAreaUpdate.Text = string.Empty;
                     }
                     else
                     {
@@ -118,16 +127,39 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
         }
         public void LimpiarCampos()
         {
-            txtidArea.Text = "";
+           
             txtArea.Text = "";
+            DllArea.SelectedIndex = 0;
+            
         }
+   
+        
+        public void ConsultaListArea()
+        {
+            var result = OenrutarUri.GetApi("Area/consultarArea");
 
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<AreaEntities[]>();
 
+                var area = readTask.Result;
+
+                DllArea.DataSource = area;
+                DllArea.DataTextField = "area";
+                DllArea.DataValueField = "idArea";
+                DllArea.DataBind();
+                DllArea.Items.Insert(0, new ListItem("Seleccione area", "0"));
+                DllArea.Dispose();
+            }
+
+        }
     }
+
 }

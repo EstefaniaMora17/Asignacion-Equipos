@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace AsignacionDatos
 {
     public class ConnectionBusiness
@@ -152,16 +152,18 @@ namespace AsignacionDatos
                                 { "@excepciones", string.Concat(ex.Message,ex.InnerException,ex.StackTrace) }
                             }), commandType: System.Data.CommandType.StoredProcedure);
 
-                    //if (count > 0)
-                    //{
-                    //    status = true;
-                    //}
+                   
                 }
+
             }
             catch (Exception)
             {
-                //guardar log en txt
-            }
+
+                TextWriter mensaje = new StreamWriter("C:\\Users\\Estefania Mora\\Desktop\\nia\\Asignacion-Equipos\\AsignacionDatos\\log\\Test.txt");
+                mensaje.WriteLine(string.Concat(ex.Message, ex.InnerException, ex.StackTrace));
+                mensaje.Close();
+
+            }   
         }
-    }
+    }   
 }

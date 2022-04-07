@@ -70,14 +70,14 @@
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link scalea" href="/pages/RegistroEquipos.aspx">
-                                              <%--  <i class="ni ni-tablet-button  text-info"></i>--%>
+                                            
                                                 <span class="nav-link-text sizeText  enlace">Registro De Equipos</span>
                                             </a>
 
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link active scalea mt-3" href="/pages/ListaEquipo.aspx">
-                                             <%--   <i class="ni ni-tablet-button text-info"><i class="fa fa-plus fa-1 iconmas"></i></i>--%>
+                                             
                                                 <span class="nav-link-text sizeText enlace">Consulta De Equipos</span>
                                             </a>
 
@@ -99,14 +99,15 @@
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link active scalea" href="/pages/RegistroSim.aspx">
-                                                <%--<i class="fas fa-sim-card text-info "></i>--%>
+                                               
                                                 <span class="nav-link-text sizeText enlace">Registro De Sim</span>
                                             </a>
 
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link active scalea mt-3" href="/pages/ListaSim.aspx">
-                                             <%--   <i class="fas fa-sim-card text-info"><i class="fa fa-plus fa-1 iconmas"></i></i>--%>
+                                            
+
                                                 <span class="nav-link-text sizeText enlace">Consulta De Sim</span>
                                             </a>
 
@@ -128,14 +129,14 @@
                                     <ul class="nav nav-sm flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link active scalea" href="/pages/RegistroUsuario.aspx">
-                                               <%--<i class="fa fa-user text-info" aria-hidden="true"></i>--%>
+                                         
                                                 <span class="nav-link-text sizeText enlace">Registro De Asesor</span>
                                             </a>
 
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link active scalea mt-3" href="/pages/ListaUsuario.aspx">
-                                              <%--  <i class="fas fa-user-friends text-warning text-info"></i>--%>
+                                             
                                                 <span class="nav-link-text sizeText enlace">Consulta De Asesor</span>
                                             </a>
 
@@ -163,7 +164,7 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link active scalea mt-3" href="/pages/ListaUsuarioEquipo.aspx">
-                                                <%--<i class="fa fa-user text-info" aria-hidden="true"><i class="ni ni-tablet-button iconmas"><i class="fa fa-plus fa-1 iconmas"></i></i></i>--%>
+                                            
                                                 <span class="nav-link-text sizeText enlace">Consulta Usuario Equipo</span>
                                             </a>
 
@@ -289,7 +290,10 @@
                                     </a>
                                     
                                     <hr />
-                                    <asp:Button ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" CssClass="btn btn-warning btncerrar" Text="Cerrar Sesión" />
+                                    <div class=" d-flex justify-content-center">
+                                          <asp:Button ID="btnCerrar" runat="server" OnClick="btnCerrar_Click" CssClass="btn btn-warning btncerrar" Text="Cerrar Sesión" />
+                                    </div>
+                                  
                                 </div>
                             </li>
                         </ul>
@@ -302,7 +306,7 @@
                 <div class="container-fluid">
                     <div class="header-body">
 
-                        <!-- Card stats -->
+                      <asp:Label ID="lblMensaje" runat="server" Text="" CssClass="diseñoMsj"></asp:Label>
 
                     </div>
                 </div>

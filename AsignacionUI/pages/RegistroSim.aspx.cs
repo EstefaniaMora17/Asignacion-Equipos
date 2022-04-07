@@ -13,7 +13,6 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroSim : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,6 +43,7 @@ namespace AsignacionUI.pages
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -61,7 +61,7 @@ namespace AsignacionUI.pages
 
                     if (OenrutarUri.PostApi("Sim/Post", OsimEntities))
                     {
-                        lblMensaje.Text = "Registro Guardados";
+                        lblMensaje.Text = "Registro Guardado";
                     }
                     else
                     {
@@ -87,12 +87,8 @@ namespace AsignacionUI.pages
         }
         public void ConsultarEstadoSim()
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/EstadoSim/ConsultarEstadoSim");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/EstadoSim/ConsultarEstadoSim");
+          
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<EstadoSimEntities[]>();
@@ -108,17 +104,14 @@ namespace AsignacionUI.pages
 
 
                 }
-            }
+            
         }
         public bool ConsultarSimIndv(string iccid)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Sim/ConsultarSimIndv?iccid=" + iccid + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/Sim/ConsultarSimIndv?iccid=" + iccid + "");
+           
+              
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<SimEntities>();
@@ -131,18 +124,14 @@ namespace AsignacionUI.pages
                         estado = true;
                     }
                 }
-            }
+            
             return estado;
         }
-        public bool ConsultarSim(string iccid)
+        public bool ConsultarSimBuscar(string iccid)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Sim/ConsultarSimIndv?iccid=" + iccid + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/Sim/ConsultarSimIndv?iccid=" + iccid + "");
+          
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<SimEntities>();
@@ -157,7 +146,7 @@ namespace AsignacionUI.pages
                         estado = true;
                     }
                 }
-            }
+            
             return estado;
         }
         protected void btnEditar_Click(object sender, EventArgs e)
@@ -172,9 +161,9 @@ namespace AsignacionUI.pages
                     OsimEntities.planDatos = txtPlandatos.Text;
                     OsimEntities.idEstadoSim = int.Parse(DllidEstadoSim.SelectedValue);
 
-                    ocultarBotones(3);
+                  
 
-                    if (OenrutarUri.PostApi("Sim/Post", OsimEntities))
+                    if (OenrutarUri.PostApi("Sim/ActualizarSim", OsimEntities))
                     {
                         lblMensaje.Text = "Edicion Exitosa";
                     }
@@ -182,20 +171,23 @@ namespace AsignacionUI.pages
                     {
                         lblMensaje.Text = "Error en la edicion, por favor intenta nuevamente";
                     }
+                    LimpiarCampos();
+                    ocultarBotones(3);
 
-                
                 }
                 else
                 {
 
-                    LimpiarCampos();
+                    lblMensaje.Text = "ICCID no registrado";
+
                 }
 
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
 
         }
@@ -203,7 +195,7 @@ namespace AsignacionUI.pages
         {
             try
             {
-                if (ConsultarSim(txtIccid.Text) == true)
+                if (ConsultarSimBuscar(txtIccid.Text) == true)
                 {
                     lblMensaje.Text = "Datos encontrados";
                     ocultarBotones(2);
@@ -215,8 +207,9 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
             }
 
 

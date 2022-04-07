@@ -26,7 +26,7 @@
 
                                             <label class="form-control-label" for="input-username">Email</label>
                                             <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEmail" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtEmail" runat="server" ErrorMessage="* Campo Obligatorio"  ValidationGroup="GuardarCampo"></asp:RequiredFieldValidator>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -37,7 +37,7 @@
                                                 <asp:ListItem Value="2">Usuarios Administrativos</asp:ListItem>
                                                 <asp:ListItem Value="3">Coordinador</asp:ListItem>
                                             </asp:DropDownList>
-                                            <asp:RequiredFieldValidator ValidationGroup="AsignarRoL" ID="RequiredFieldValidator4" runat="server" ControlToValidate="dllRol" InitialValue="0" ErrorMessage="* Campo Obligatorio" />
+                                            <asp:RequiredFieldValidator  ID="RequiredFieldValidator4" runat="server" ControlToValidate="dllRol" InitialValue="0" ErrorMessage="* Campo Obligatorio"  ValidationGroup="GuardarCampo" />
                                         </div>
                                     </div>
                                 </div>
@@ -46,14 +46,14 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-first-name">Contraseña</label>
                                             <asp:TextBox ID="txtContraseña" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtContraseña" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtContraseña" runat="server" ErrorMessage="* Campo Obligatorio"  ValidationGroup="GuardarCampo"></asp:RequiredFieldValidator>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-last-name">Confirmar Contraseña</label>
                                             <asp:TextBox ID="txtCcontraseña" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCcontraseña" runat="server" ErrorMessage="* Campo Obligatorio"></asp:RequiredFieldValidator>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtCcontraseña" runat="server" ErrorMessage="* Campo Obligatorio"  ValidationGroup="GuardarCampo"></asp:RequiredFieldValidator>
                                         </div>
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
                                 <asp:Label ID="mensajeExcepcion" runat="server" Text=""></asp:Label>
                             </div>
                             <div class="d-flex justify-content-center">
-                                <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn btn-primary my-4" OnClick="btnRegistrar_Click" />
+                                <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn btn-primary my-4" OnClick="btnRegistrar_Click"   ValidationGroup="GuardarCampo"/>
                             </div>
 
                         </div>

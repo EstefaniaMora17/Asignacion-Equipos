@@ -9,11 +9,13 @@ using System.Web.UI.WebControls;
 using System.Web.UI;
 using System;
 using System.Text;
+using AsignacionUI.Clases;
+
 namespace AsignacionUI.pages
 {
     public partial class ListaCargo : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+        EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -40,47 +42,42 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
         public void ConsultarCargo()
         {
-            using (var client = new HttpClient())
+            var result = OenrutarUri.GetApi("Cargo/ConsultarCargo");
+
+            if (result.IsSuccessStatusCode)
             {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Cargo/ConsultarCargo");
+                var readTask = result.Content.ReadAsAsync<CargoEntities[]>();
 
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
+                var cargo = readTask.Result;
+
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var Cargo in cargo)
                 {
-                    var readTask = result.Content.ReadAsAsync<CargoEntities[]>();
-
-                    var cargo = readTask.Result;
-
-                    StringBuilder sb = new StringBuilder();
-
-                    foreach (var Cargo in cargo)
-                    {
-                        sb.Append("<tr>" +
-                    "<th scope = 'row'> " +
-                      "<div class='media align-items-center'>" +
-                        "<div class='media-body'>" +
-                         "<span class='name mb-0 text-sm'>" + Cargo.idcargo + "</span>" +
-                        "</div>" +
-                      "</div>" +
-                    "</th>" +
-                    " <td class='budget'>" + Cargo.cargo + "</td>" +
-                  "</tr>");
-                    }
-
-                    dataCargo.InnerHtml = sb.ToString();
-
-                   
-
+                    sb.Append("<tr>" +
+                "<th scope = 'row'> " +
+                  "<div class='media align-items-center'>" +
+                    "<div class='media-body'>" +
+                     "<span class='name mb-0 text-sm'>" + Cargo.idcargo + "</span>" +
+                    "</div>" +
+                  "</div>" +
+                "</th>" +
+                " <td class='budget'>" + Cargo.cargo + "</td>" +
+              "</tr>");
                 }
-        
+
+                dataCargo.InnerHtml = sb.ToString();
+
+
+
             }
+
         }
     }
 }

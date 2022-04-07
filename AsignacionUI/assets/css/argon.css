@@ -320,6 +320,7 @@ figure {
 img {
     vertical-align: middle;
     border-style: none;
+    width: 400px;
 }
 
 svg {
@@ -395,7 +396,7 @@ button,
     [type='reset']:not(:disabled),
     [type='submit']:not(:disabled) {
         cursor: pointer;
-        margin-left: 38px;
+        margin-left: -7px;
     }
 
 .btnmargin {
@@ -6962,6 +6963,11 @@ a.close.disabled {
     width: 100%;
     height: 100%;
     outline: 0;
+}
+.diseñoMsj {
+    color: #d62c1f;
+    font-size: 17px;
+    font-weight: 600;
 }
 
 .modal-dialog {

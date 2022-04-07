@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.UI.WebControls;
 using AsignacionEntities;
 using AsignacionUI.Clases;
 
@@ -8,7 +9,6 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroCargo : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,6 +23,10 @@ namespace AsignacionUI.pages
                         {
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
+                        else
+                        {
+                            ConsultaListCargo();
+                        }
 
 
                     }
@@ -35,6 +39,7 @@ namespace AsignacionUI.pages
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                lblMensaje.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -48,7 +53,7 @@ namespace AsignacionUI.pages
 
                 if (OenrutarUri.PostApi("Cargo/Post", OcargoEntities))
                 {
-                    lblMensaje.Text = "Registro Guardados";
+                    lblMensaje.Text = "Registro Guardado";
                 }
                 else
                 {
@@ -64,42 +69,40 @@ namespace AsignacionUI.pages
         public bool ConsultarCargoIndv(int idcargo)
         {
             bool estado = false;
-            using (var client = new HttpClient())
+
+            var result = OenrutarUri.GetApi("/Cargo/ConsultarCargoIndv?idcargo=" + idcargo + "");
+            if (result.IsSuccessStatusCode)
             {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/Cargo/ConsultarCargoIndv?idcargo=" + idcargo + "");
+                var readTask = result.Content.ReadAsAsync<CargoEntities>();
 
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
+                var cargo = readTask.Result;
+
+                if (cargo.idcargo == idcargo)
                 {
-                    var readTask = result.Content.ReadAsAsync<CargoEntities>();
 
-                    var cargo = readTask.Result;
-
-                    if (cargo.idcargo == idcargo)
-                    {
-
-                        estado = true;
-                    }
-
+                    estado = true;
                 }
-                return estado;
+
             }
+            return estado;
         }
+        
 
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ConsultarCargoIndv(int.Parse(txtidCargo.Text)) == true)
+                if (ConsultarCargoIndv(int.Parse(DllCargo.SelectedValue)) == true)
                 {
                     CargoEntities OcargoEntities = new CargoEntities();
-                    OcargoEntities.idcargo = int.Parse(txtidCargo.Text);
-                    OcargoEntities.cargo = txtCargo.Text;
-                    if (OenrutarUri.PostApi("/api/Cargo", OcargoEntities))
+                    OcargoEntities.idcargo = int.Parse(DllCargo.SelectedValue);
+                    OcargoEntities.cargo = txtCargoUpdate.Text;
+                    if (OenrutarUri.PostApi("Cargo/ActualizarCargo", OcargoEntities))
                     {
 
                         lblMensaje.Text = "Edicion Exitosa";
+                        ConsultaListCargo();
+                        txtCargoUpdate.Text = string.Empty;
                     }
                     else
                     {
@@ -115,8 +118,9 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
+
 
             }
 
@@ -124,10 +128,31 @@ namespace AsignacionUI.pages
         }
         public void LimpiarCampos()
         {
-            txtidCargo.Text = "";
+           
             txtCargo.Text = "";
+        }
+
+        public void ConsultaListCargo()
+        {
+            var result = OenrutarUri.GetApi("/Cargo/ConsultarCargo");
+            
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<CargoEntities[]>();
+
+                    var cargo = readTask.Result;
+
+                    DllCargo.DataSource = cargo;
+                    DllCargo.DataTextField = "cargo";
+                    DllCargo.DataValueField = "idcargo";
+                    DllCargo.DataBind();
+                    DllCargo.Items.Insert(0, new ListItem("Seleccionar cargo", "0"));
+                    DllCargo.Dispose();
+
+
+                }
+            }
         }
 
 
     }
-}

@@ -13,7 +13,7 @@ namespace AsignacionUI.pages
 {
     public partial class RegistroUbicacionEquipo : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+        
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,7 +28,10 @@ namespace AsignacionUI.pages
                         {
                             Response.Redirect("../Users/NoAutorizado.aspx");
                         }
-                       
+                        else
+                        {
+                            ConsultaListUbiacionEquipo();
+                        }
 
                     }
                     else
@@ -40,6 +43,7 @@ namespace AsignacionUI.pages
             catch (Exception ex)
             {
                 excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
         }
 
@@ -52,7 +56,7 @@ namespace AsignacionUI.pages
 
                     if (OenrutarUri.PostApi("UbicacionEquipo/Post", OubicacionEquipoEntities))
                     {
-                        lblMensaje.Text = "Registro Guardados";
+                        lblMensaje.Text = "Registro Guardado";
                     }
                     else
                     {
@@ -70,12 +74,8 @@ namespace AsignacionUI.pages
         public bool ConsultarUbicacionEquipoIndv(int idubicacionEquipo)
         {
             bool estado = false;
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("https://localhost:44335");
-                var responseTask = client.GetAsync("/api/UbicacionEquipo/ConsultarUbicacionEquipoIndv?idubicacionEquipo=" + idubicacionEquipo + "");
-
-                var result = responseTask.Result;
+            var result = OenrutarUri.GetApi("/UbicacionEquipo/ConsultarUbicacionEquipoIndv?idubicacionEquipo=" + idubicacionEquipo + "");
+           
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<UbicacionEquipoEntities>();
@@ -90,21 +90,23 @@ namespace AsignacionUI.pages
 
                 }
                 return estado;
-            }
+            
         }
         protected void btnEditar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ConsultarUbicacionEquipoIndv(int.Parse(txidubicacionEquipo.Text)) == true)
-                {
+                if (ConsultarUbicacionEquipoIndv(int.Parse(DllUbiacionEquipo.SelectedValue)) == true)
+                    {
                     UbicacionEquipoEntities OubicacionEquipoEntities = new UbicacionEquipoEntities();
-                    OubicacionEquipoEntities.idubicacionEquipo = int.Parse(txidubicacionEquipo.Text);
-                    OubicacionEquipoEntities.ubicacionEquipo = txtUbicacionEquipo.Text;
+                    OubicacionEquipoEntities.idubicacionEquipo = int.Parse(DllUbiacionEquipo.SelectedValue);
+                    OubicacionEquipoEntities.ubicacionEquipo = txtUbiacionEquipoUpdate.Text;
 
-                    if (OenrutarUri.PostApi("UbicacionEquipo/Post", OubicacionEquipoEntities))
+                    if (OenrutarUri.PostApi("/UbicacionEquipo/ActualizarUbicacionEquipo", OubicacionEquipoEntities))
                     {
                         lblMensaje.Text = "Edicion Exitosa";
+                        ConsultaListUbiacionEquipo();
+                        txtUbiacionEquipoUpdate.Text = string.Empty;
                     }
                     else
                     {
@@ -120,15 +122,33 @@ namespace AsignacionUI.pages
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Ocurrio un error, por favor intenta nuevamente";
             }
 
         }
         public void LimpiarCampos()
         {
-            txidubicacionEquipo.Text = "";
             txtUbicacionEquipo.Text = "";
+        }
+        public void ConsultaListUbiacionEquipo()
+        {
+            var result = OenrutarUri.GetApi("/UbicacionEquipo/ConsultarUbicacionEquipo");
+
+            if (result.IsSuccessStatusCode)
+            {
+                var readTask = result.Content.ReadAsAsync<UbicacionEquipoEntities[]>();
+
+                var UbiacionEquipo = readTask.Result;
+
+                DllUbiacionEquipo.DataSource = UbiacionEquipo;
+                DllUbiacionEquipo.DataTextField = "ubicacionEquipo";
+                DllUbiacionEquipo.DataValueField = "idubicacionEquipo";
+                DllUbiacionEquipo.DataBind();
+                DllUbiacionEquipo.Items.Insert(0, new ListItem("Seleccione Ubicaicon Equipo", "0"));
+                DllUbiacionEquipo.Dispose();
+            }
+
         }
     }
 }
