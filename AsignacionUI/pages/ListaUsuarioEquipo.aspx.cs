@@ -1,21 +1,14 @@
-﻿using System.IO;
-using System.Data;
-using System.Drawing;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Net.Http;
-using AsignacionEntities;
-using System.Web.UI.WebControls;
-using System.Web.UI;
-using System;
-using System.Text;
+﻿using AsignacionEntities;
 using AsignacionUI.Clases;
+using System;
+using System.Net.Http;
+using System.Text;
 
 namespace AsignacionUI.pages
 {
     public partial class ListaUsuarioEquipo : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,13 +25,13 @@ namespace AsignacionUI.pages
                         }
                         else
                         {
-                            Response.Redirect("../Users/NoAutorizado.aspx");
+                            Response.Redirect("../Users/NoAutorizado.aspx",false);
                         }
 
                     }
                     else
                     {
-                        Response.Redirect("/Users/Login.aspx");
+                        Response.Redirect("/Users/Login.aspx",false);
                     }
                 }
             }

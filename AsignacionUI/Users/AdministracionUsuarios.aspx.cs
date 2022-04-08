@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AsignacionUI.Clases;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using System;
@@ -12,30 +13,30 @@ namespace AsignacionUI.Users
 {
     public partial class AdministracionUsuarios : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+      
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                ////if (!IsPostBack)
-                ////{
-                ////    if (User.Identity.IsAuthenticated)
-                ////    {
-                ////        if (!User.IsInRole("Coordinador"))
-                ////        {
-                ////            Response.Redirect("NoAutorizado.aspx");
-                ////        }
-                ////    }
-                ////    else
-                ////    {
-                ////        Response.Redirect("../Users/Login.aspx");
-                ////    }
-                ////}
+                if (!IsPostBack)
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        if (!User.IsInRole("Coordinador"))
+                        {
+                            Response.Redirect("NoAutorizado.aspx");
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect("../Users/Login.aspx");
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Error registrando, por favor intenta nuevamente";
             }
         }
 
@@ -48,9 +49,8 @@ namespace AsignacionUI.Users
             }
             catch (Exception ex)
             {
-
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Error registrando, por favor intenta nuevamente";
             }
         }
 

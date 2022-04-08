@@ -28,7 +28,7 @@ namespace AsignacionUI
                     }
                     else
                     {
-                        Response.Redirect("/Users/Login.aspx");
+                        Response.Redirect("/Users/Login.aspx",false);
                     }
                 }
 
@@ -42,7 +42,7 @@ namespace AsignacionUI
         }
         protected void btnCerrar_Click(object sender, EventArgs e)
         {
-            Page.Response.Redirect("../Users/Login.aspx", true);
+            Page.Response.Redirect("../Users/Login.aspx", false);
         }
     }
 }

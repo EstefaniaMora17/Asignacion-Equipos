@@ -1,19 +1,14 @@
 ﻿using AsignacionEntities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Text;
 using AsignacionUI.Clases;
+using System;
+using System.Net.Http;
+using System.Text;
 
 namespace AsignacionUI.pages
 {
     public partial class ListaUbicacion : System.Web.UI.Page
     {
-        excepciones Oexcepciones = new excepciones();
+     
         EnrutarUri OenrutarUri = new EnrutarUri();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,13 +24,13 @@ namespace AsignacionUI.pages
                         }
                         else
                         {
-                            Response.Redirect("../Users/NoAutorizado.aspx");
+                            Response.Redirect("../Users/NoAutorizado.aspx",false);
                         }
 
                     }
                     else
                     {
-                        Response.Redirect("/Users/Login.aspx");
+                        Response.Redirect("/Users/Login.aspx",false);
                     }
                 }
             }

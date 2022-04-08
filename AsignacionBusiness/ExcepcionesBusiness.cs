@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using AsignacionDatos;
 using AsignacionEntities;
 namespace AsignacionBusiness
@@ -11,28 +8,32 @@ namespace AsignacionBusiness
     {
         ConnectionBusiness OconnectionBusiness = new ConnectionBusiness();
         System.Collections.Generic.Dictionary<string, object> parameters = new System.Collections.Generic.Dictionary<string, object>();
+      
         public bool insertarExcepciones(ExcepcionesEntities OexcepcionesEntities)
         {
 
-            parameters.Add("excepciones", OexcepcionesEntities.excepciones);
+            parameters.Add("excepcione", OexcepcionesEntities.excepciones);
 
-            return OconnectionBusiness.Execute("insertarExcepciones", parameters);
+            return OconnectionBusiness.Execute("insertarExcepcione", parameters);
         }
 
-        public void Excepcion(Exception exception)
+        public void Excepcion(Exception ex)
         {
             try
             {
-               parameters.Add("excepciones", string.Concat(exception.Message, exception.InnerException, exception.StackTrace));
+               parameters.Add("excepciones", string.Concat(ex.Message, ex.InnerException, ex.StackTrace));
 
                 OconnectionBusiness.Execute("insertarExcepciones", parameters);
             }
             catch (Exception )
             {
-                //guardar log en txt
+                TextWriter mensaje = new StreamWriter("C:\\Users\\Estefania Mora\\Desktop\\nia\\Asignacion-Equipos\\AsignacionDatos\\log\\Test.txt");
+                mensaje.WriteLine(string.Concat(ex.Message, ex.InnerException, ex.StackTrace));
+                mensaje.Close();
+
             }
 
-        }
+        }   
 
     }
 }

@@ -46,9 +46,8 @@ namespace AsignacionUI.Users
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
-                lblMensaje.Text = ex.Message + ex.InnerException + ex.StackTrace;
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Error registrando, por favor intenta nuevamente";
             }
         }
     }

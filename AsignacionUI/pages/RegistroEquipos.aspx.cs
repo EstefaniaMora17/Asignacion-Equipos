@@ -1,15 +1,9 @@
 ﻿
-using System;
-using System.Collections.Generic;
-
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using AsignacionEntities;
 using AsignacionUI.Clases;
+using System;
+using System.Net.Http;
+using System.Web.UI.WebControls;
 
 namespace AsignacionUI.pages
 {
@@ -35,13 +29,13 @@ namespace AsignacionUI.pages
                         }
                         else
                         {
-                            Response.Redirect("../Users/NoAutorizado.aspx");
+                            Response.Redirect("../Users/NoAutorizado.aspx",false);
                         }
 
                     }
                     else
                     {
-                        Response.Redirect("/Users/Login.aspx");
+                        Response.Redirect("/Users/Login.aspx",false);
                     }
                 }
             }

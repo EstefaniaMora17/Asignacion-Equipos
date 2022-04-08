@@ -2,6 +2,7 @@
 using AsignacionUI.Clases;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -20,20 +21,22 @@ namespace AsignacionUI
            
 
         }
-        public static void capturarExcepcion(Exception mensaje)
+        public static void capturarExcepcion(Exception ex)
         {
             try
             {
                 ExcepcionesEntities OexcepcionesEntities = new ExcepcionesEntities();
-                OexcepcionesEntities.excepciones = string.Concat(mensaje.Message, mensaje.InnerException, mensaje.StackTrace);
+                OexcepcionesEntities.excepciones = string.Concat(ex.Message, ex.InnerException, ex.StackTrace);
 
                 EnrutarUri OenrutarUri = new EnrutarUri();
 
                 OenrutarUri.PostApi("Excepciones/Post", OexcepcionesEntities);
             }
-            catch (Exception)
+            catch (Exception )
             {
-                //guardar un log en un archivo txt
+                TextWriter mensaje = new StreamWriter("C:\\Users\\Estefania Mora\\Desktop\\nia\\Asignacion-Equipos\\AsignacionDatos\\log\\Test.txt");
+                mensaje.WriteLine(string.Concat(ex.Message, ex.InnerException, ex.StackTrace));
+                mensaje.Close();
             }
         }
     }

@@ -18,18 +18,13 @@ namespace AsignacionUI.pages
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "clearHistory", "ClearHistory();", true);
                     //CERAR SESION
                     var authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
-                    authenticationManager.SignOut();
-                    HttpContext.Current.Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                    HttpContext.Current.Response.AddHeader("Pragma", "no-cache");
-                    HttpContext.Current.Response.AddHeader("Expires", "0");
-
-               
+                    authenticationManager.SignOut();          
                 }
             }
             catch (Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Error registrando, por favor intenta nuevamente";
             }
         }
 
@@ -50,7 +45,7 @@ namespace AsignacionUI.pages
                     authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
 
                     // redirecina dentro el sistema
-                    Response.Redirect("/Pages/Perfil.aspx");
+                    Response.Redirect("../Pages/Perfil.aspx", false);
                 }
                 else
                 {
@@ -60,8 +55,8 @@ namespace AsignacionUI.pages
             }
             catch(Exception ex)
             {
-                Oexcepciones.capturarExcepcion(mensajeExcepcion.Text);
-                mensajeExcepcion.Text = (ex.Message);
+                excepciones.capturarExcepcion(ex);
+                mensajeExcepcion.Text = "Error registrando, por favor intenta nuevamente";
             }
            
            

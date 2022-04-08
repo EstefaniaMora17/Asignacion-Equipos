@@ -1,20 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web;
 
 namespace AsignacionUI.Clases
 {
     public class EnrutarUri
+
     {
+        string UrlApi = ConfigurationManager.AppSettings["UrlAPI"];
         public bool PostApi(string metodo, Object datos)
         {
             try
             {
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://localhost:44335");
+                client.BaseAddress = new Uri(UrlApi);
                 //url del proyecto webApi
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -42,7 +42,7 @@ namespace AsignacionUI.Clases
 
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44335");
+                client.BaseAddress = new Uri(UrlApi);
                 var responseTask = client.GetAsync(string.Format("/api/{0}", metodo));
                 return responseTask.Result;
 

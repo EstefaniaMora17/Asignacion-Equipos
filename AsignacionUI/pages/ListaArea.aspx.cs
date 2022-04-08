@@ -31,13 +31,13 @@ namespace AsignacionUI.pages
                         }
                         else
                         {
-                            Response.Redirect("../Users/NoAutorizado.aspx");
+                            Response.Redirect("../Users/NoAutorizado.aspx",false);
                         }
 
                     }
                     else
                     {
-                        Response.Redirect("/Users/Login.aspx");
+                        Response.Redirect("/Users/Login.aspx",false);
                     }
                 }
             }

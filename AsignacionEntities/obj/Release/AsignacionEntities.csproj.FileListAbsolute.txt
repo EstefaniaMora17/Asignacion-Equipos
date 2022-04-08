@@ -1,0 +1,6 @@
+C:\Users\Estefania Mora\Desktop\nia\Asignacion-Equipos\AsignacionEntities\bin\Release\AsignacionEntities.dll
+C:\Users\Estefania Mora\Desktop\nia\Asignacion-Equipos\AsignacionEntities\bin\Release\AsignacionEntities.pdb
+C:\Users\Estefania Mora\Desktop\nia\Asignacion-Equipos\AsignacionEntities\obj\Release\AsignacionEntities.csproj.AssemblyReference.cache
+C:\Users\Estefania Mora\Desktop\nia\Asignacion-Equipos\AsignacionEntities\obj\Release\AsignacionEntities.csproj.CoreCompileInputs.cache
+C:\Users\Estefania Mora\Desktop\nia\Asignacion-Equipos\AsignacionEntities\obj\Release\AsignacionEntities.dll
+C:\Users\Estefania Mora\Desktop\nia\Asignacion-Equipos\AsignacionEntities\obj\Release\AsignacionEntities.pdb
